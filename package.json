@@ -10,7 +10,8 @@
     "lint": "tsc",
     "format:check": "prettier --check --ignore-path .prettierignore .",
     "format": "prettier --write --ignore-path .prettierignore .",
-    "ci": "pnpm run lint && pnpm run format:check && pnpm run build"
+    "ci": "pnpm run lint && pnpm run format:check && pnpm run build",
+    "release": "pnpm run ci && changeset publish"
   },
   "keywords": [
     "betterstore",
