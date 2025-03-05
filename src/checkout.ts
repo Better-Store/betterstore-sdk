@@ -2,9 +2,9 @@ interface BaseCheckoutParams {
   line_items: {
     productId: string;
     variantOptions?: { name: string; value: string }[];
-    quantity: number;
+    quantity?: number;
   }[];
-  discount: string;
+  discount?: string; // TODO: handle discounts
 }
 
 interface HostedCheckoutParams extends BaseCheckoutParams {
@@ -27,6 +27,7 @@ class Checkout {
     const lineItems = params.line_items.map((item) => {
       return {
         ...item,
+        quantity: (item.quantity ?? 1) > 0 ? item.quantity : 1,
         variant_options: item.variantOptions ?? [],
       };
     });

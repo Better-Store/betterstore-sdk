@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.1.1
+
+### Patch Changes
+
+- readme changed, checkout types changed
+
 ## 0.1.0
 
 ### Minor Changes
