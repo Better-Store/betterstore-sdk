@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 const API_BASE_URL = "https://api.betterstore.io/api/v1";
 
@@ -21,8 +21,8 @@ export const createApiClient = (apiKey: string) => {
 
   // Add response interceptor for error handling
   client.interceptors.response.use(
-    (response) => response.data,
-    (error): never => {
+    (response: AxiosResponse) => response.data,
+    (error: AxiosError): never => {
       const apiError: ApiError = {
         status: 500,
         message: "An unexpected error occurred",
@@ -30,8 +30,10 @@ export const createApiClient = (apiKey: string) => {
 
       if (error.response) {
         apiError.status = error.response.status;
-        apiError.message = error.response.data.error || "Server error occurred";
-        apiError.code = error.response.data.code;
+        apiError.message =
+          (error.response.data as { error?: string })?.error ||
+          "Server error occurred";
+        apiError.code = (error.response.data as { code?: string })?.code;
         apiError.details = error.response.data;
       } else if (error.request) {
         apiError.status = 503;
