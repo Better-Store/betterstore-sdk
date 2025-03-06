@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       axios:
-        specifier: ^1.7.7
+        specifier: ^1.8.1
         version: 1.8.1
     devDependencies:
       '@changesets/cli':

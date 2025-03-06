@@ -25,14 +25,14 @@
   ],
   "author": "Better Store",
   "license": "MIT",
-  "peerDependencies": {
-    "axios": "^1.7.7"
-  },
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
     "@types/axios": "^0.14.4",
     "prettier": "^3.5.3",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "axios": "^1.8.1"
   }
 }
