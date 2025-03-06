@@ -25,6 +25,9 @@
   ],
   "author": "Better Store",
   "license": "MIT",
+  "peerDependencies": {
+    "axios": "^1.7.7"
+  },
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
     "prettier": "^3.5.3",

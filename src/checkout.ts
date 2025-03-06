@@ -1,77 +1,143 @@
-interface BaseCheckoutParams {
-  line_items: {
-    productId: string;
-    variantOptions?: { name: string; value: string }[];
-    quantity?: number;
-  }[];
-  discount?: string; // TODO: handle discounts
+import { createApiClient } from "./utils/axios";
+
+interface LineItem {
+  quantity: number;
+  productId?: string;
+  variantOptions: { name: string; value: string }[];
+  discountId?: string;
 }
 
-interface HostedCheckoutParams extends BaseCheckoutParams {
-  type: "hosted";
-  successUrl: string;
-  cancelUrl: string;
+interface CheckoutCreateParams {
+  type: "hosted" | "embed";
+  customerId?: string;
+  lineItems: LineItem[];
 }
-interface EmbedCheckoutParams extends BaseCheckoutParams {
-  type: "embed";
+
+interface CheckoutUpdateParams {
+  email?: string;
+  phone?: string;
+  lineItems?: LineItem[];
+  customerId?: string;
+}
+
+interface ShippingRate {
+  id: string;
+  rate: number;
+  provider: string;
+  service: string;
+  estimatedDays: number;
+}
+
+interface Address {
+  name: string;
+  company?: string;
+  address: string;
+  city: string;
+  state: string;
+  country: string;
+  apartment?: string;
+  postalCode: string;
+  phone: string;
+}
+
+interface CheckoutSession {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  email?: string;
+  phone?: string;
+  clientSecret: string;
+  lineItems: {
+    quantity: number;
+    discount?: any; // Match the Discount type if needed
+    variantOptions: { name: string; value: string }[];
+    product?: {
+      id: string;
+      title: string;
+      description?: string;
+      images: string[];
+      category: string;
+      tags: string[];
+      priceInCents: number;
+    };
+  }[];
+  total?: number;
+  subtotal?: number;
+  tax?: number;
+  shipping?: number;
+  currency: string;
+  status:
+    | "IN_PROGRESS"
+    | "PAYMENT_PENDING"
+    | "ABANDONED"
+    | "CANCELED"
+    | "FAILED";
+  customer?: {
+    address?: Address;
+    email?: string;
+  };
 }
 
 class Checkout {
-  private apiKey: string;
+  private apiClient: ReturnType<typeof createApiClient>;
 
   constructor(apiKey: string) {
-    this.apiKey = apiKey;
+    this.apiClient = createApiClient(apiKey);
   }
 
-  async create(params: HostedCheckoutParams | EmbedCheckoutParams) {
-    const lineItems = params.line_items.map((item) => {
-      return {
-        ...item,
-        quantity: (item.quantity ?? 1) > 0 ? item.quantity : 1,
-        variant_options: item.variantOptions ?? [],
-      };
-    });
+  /**
+   * Create a new checkout session
+   */
+  async create(params: CheckoutCreateParams): Promise<CheckoutSession> {
+    const data: CheckoutSession = await this.apiClient.post(
+      "/checkout",
+      params
+    );
+    return data;
+  }
 
-    const response = await fetch("https://betterstore.io/api/checkout", {
-      method: "POST",
-      body: JSON.stringify({
-        type: params.type,
-        line_items: lineItems,
-        discount: params.discount,
-        ...(params.type === "hosted" && {
-          success_url: params.successUrl,
-          cancel_url: params.cancelUrl,
-        }),
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-    });
-    const data = await response.json();
+  /**
+   * Retrieve a checkout session by ID or client secret
+   */
+  async retrieve(idOrSecret: string): Promise<CheckoutSession> {
+    const data: CheckoutSession = await this.apiClient.get(
+      `/checkout/${idOrSecret}`
+    );
+    return data;
+  }
 
-    if (params.type === "hosted") {
-      const checkoutId = data.checkoutId;
+  /**
+   * Update a checkout session
+   */
+  async update(
+    checkoutId: string,
+    params: CheckoutUpdateParams
+  ): Promise<CheckoutSession> {
+    const data: CheckoutSession = await this.apiClient.put(
+      `/checkout/${checkoutId}`,
+      params
+    );
+    return data;
+  }
 
-      if (!checkoutId) {
-        throw new Error("Failed to create checkout");
-      }
+  /**
+   * Get shipping rates for a checkout session
+   */
+  async getShippingRates(checkoutId: string): Promise<ShippingRate[]> {
+    const data: ShippingRate[] = await this.apiClient.get(
+      `/checkout/shipping/${checkoutId}`
+    );
+    return data;
+  }
 
-      const searchParams = new URLSearchParams({
-        successUrl: params.successUrl,
-        cancelUrl: params.cancelUrl,
-      });
-
-      return `https://checkout.betterstore.io/${checkoutId}?${searchParams.toString()}`;
-    }
-
-    const clientSecret = data.clientSecret;
-
-    if (!clientSecret) {
-      throw new Error("Failed to create checkout");
-    }
-
-    return { client_secret: clientSecret };
+  /**
+   * Generate payment secret for a checkout session
+   */
+  async generatePaymentSecret(checkoutId: string): Promise<string> {
+    const data: string = await this.apiClient.post(
+      `/checkout/payment/${checkoutId}`
+    );
+    return data;
   }
 }
 
