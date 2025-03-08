@@ -1,10 +1,10 @@
 import Checkout from "./checkout";
 import Customer from "./customer";
-import Product from "./product";
+import Products from "./products";
 
 class BetterStore {
   public checkout: Checkout;
-  public product: Product;
+  public products: Products;
   public customer: Customer;
   // private apiKey: string;
 
@@ -15,7 +15,7 @@ class BetterStore {
 
     // this.apiKey = apiKey;
     this.checkout = new Checkout(apiKey);
-    this.product = new Product(apiKey);
+    this.products = new Products(apiKey);
     this.customer = new Customer(apiKey);
   }
 }

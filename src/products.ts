@@ -53,7 +53,7 @@ interface Product {
   productVariants: ProductVariant[];
 }
 
-class Product {
+class Products {
   private apiClient: ReturnType<typeof createApiClient>;
 
   constructor(apiKey: string) {
@@ -78,4 +78,4 @@ class Product {
   }
 }
 
-export default Product;
+export default Products;
