@@ -21,3 +21,4 @@ class BetterStore {
 }
 
 export default BetterStore;
+export { createNextJSHandler } from "./route-handelers/index";

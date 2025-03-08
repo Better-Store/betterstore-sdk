@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.2.2
+
+### Patch Changes
+
+- route handlers added
+
 ## 0.2.1
 
 ### Patch Changes
