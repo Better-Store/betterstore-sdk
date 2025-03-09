@@ -2,6 +2,7 @@ import { type NextRequest } from "next/server";
 import BetterStore from "..";
 
 type NextjsRouteConfig = {
+  apiKey?: string;
   productionAllowedOrigins?: string[];
 };
 
@@ -173,16 +174,46 @@ const defaultBetterStoreRoutes: Record<string, BetterStoreRouteHandler> = {
   },
 };
 
+function addCORSHeaders(
+  response: Response,
+  origin: string | null,
+  allowedOrigins: string[]
+): Response {
+  if (origin && allowedOrigins.includes(origin)) {
+    response.headers.set("Access-Control-Allow-Origin", origin);
+  }
+  response.headers.set(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  response.headers.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+  return response;
+}
+
 export function createNextJSHandler(
   betterStore: BSClient,
   config: NextjsRouteConfig = {}
 ) {
-  const { productionAllowedOrigins = [] } = config;
+  const { apiKey, productionAllowedOrigins = [] } = config;
   const isProduction = process.env.NODE_ENV === "production";
 
   async function validateRequest(req: NextRequest): Promise<Response | null> {
+    if (apiKey) {
+      const authHeader = req.headers.get("Authorization");
+      const providedKey = authHeader?.replace("Bearer ", "");
+
+      if (!providedKey || providedKey !== apiKey) {
+        return new Response("Unauthorized", {
+          status: 401,
+          headers: { "WWW-Authenticate": "Bearer" },
+        });
+      }
+    }
+    const origin = req.headers.get("origin");
     if (isProduction && productionAllowedOrigins.length > 0) {
-      const origin = req.headers.get("origin");
       if (!origin || !productionAllowedOrigins.includes(origin)) {
         return new Response("Unauthorized", { status: 403 });
       }
@@ -201,58 +232,114 @@ export function createNextJSHandler(
   return {
     async GET(req: NextRequest) {
       const validationError = await validateRequest(req);
-      if (validationError) return validationError;
+      if (validationError)
+        return addCORSHeaders(
+          validationError,
+          req.headers.get("origin"),
+          productionAllowedOrigins
+        );
 
       const route = getRouteFromPath(new URL(req.url).pathname);
       const handler = defaultBetterStoreRoutes[route]?.GET;
 
       if (!handler) {
-        return new Response(`Route not found: ${route}`, { status: 404 });
+        return addCORSHeaders(
+          new Response(`Route not found: ${route}`, { status: 404 }),
+          req.headers.get("origin"),
+          productionAllowedOrigins
+        );
       }
 
-      return handler(req, betterStore);
+      const response = await handler(req, betterStore);
+      return addCORSHeaders(
+        response,
+        req.headers.get("origin"),
+        productionAllowedOrigins
+      );
     },
 
     async POST(req: NextRequest) {
       const validationError = await validateRequest(req);
-      if (validationError) return validationError;
+      if (validationError)
+        return addCORSHeaders(
+          validationError,
+          req.headers.get("origin"),
+          productionAllowedOrigins
+        );
 
       const route = getRouteFromPath(new URL(req.url).pathname);
       const handler = defaultBetterStoreRoutes[route]?.POST;
 
       if (!handler) {
-        return new Response(`Route not found: ${route}`, { status: 404 });
+        return addCORSHeaders(
+          new Response(`Route not found: ${route}`, { status: 404 }),
+          req.headers.get("origin"),
+          productionAllowedOrigins
+        );
       }
 
-      return handler(req, betterStore);
+      const response = await handler(req, betterStore);
+      return addCORSHeaders(
+        response,
+        req.headers.get("origin"),
+        productionAllowedOrigins
+      );
     },
 
     async PUT(req: NextRequest) {
       const validationError = await validateRequest(req);
-      if (validationError) return validationError;
+      if (validationError)
+        return addCORSHeaders(
+          validationError,
+          req.headers.get("origin"),
+          productionAllowedOrigins
+        );
 
       const route = getRouteFromPath(new URL(req.url).pathname);
       const handler = defaultBetterStoreRoutes[route]?.PUT;
 
       if (!handler) {
-        return new Response(`Route not found: ${route}`, { status: 404 });
+        return addCORSHeaders(
+          new Response(`Route not found: ${route}`, { status: 404 }),
+          req.headers.get("origin"),
+          productionAllowedOrigins
+        );
       }
 
-      return handler(req, betterStore);
+      const response = await handler(req, betterStore);
+      return addCORSHeaders(
+        response,
+        req.headers.get("origin"),
+        productionAllowedOrigins
+      );
     },
 
     async DELETE(req: NextRequest) {
       const validationError = await validateRequest(req);
-      if (validationError) return validationError;
+      if (validationError)
+        return addCORSHeaders(
+          validationError,
+          req.headers.get("origin"),
+          productionAllowedOrigins
+        );
 
       const route = getRouteFromPath(new URL(req.url).pathname);
       const handler = defaultBetterStoreRoutes[route]?.DELETE;
 
       if (!handler) {
-        return new Response(`Route not found: ${route}`, { status: 404 });
+        return addCORSHeaders(
+          new Response(`Route not found: ${route}`, { status: 404 }),
+          req.headers.get("origin"),
+          productionAllowedOrigins
+        );
       }
 
-      return handler(req, betterStore);
+      const response = await handler(req, betterStore);
+      return addCORSHeaders(
+        response,
+        req.headers.get("origin"),
+        productionAllowedOrigins
+      );
     },
   };
 }

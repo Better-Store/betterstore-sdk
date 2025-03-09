@@ -1,6 +1,6 @@
 {
   "name": "@betterstore/sdk",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "E-commerce for Developers",
   "private": false,
   "publishConfig": {
@@ -10,6 +10,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
+    "prepublish": "changeset && changeset version && git add .",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc",
     "format:check": "prettier --check --ignore-path .prettierignore .",
@@ -34,6 +35,6 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "axios": "^1.8.1"
+    "axios": "^1.8.2"
   }
 }

@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.2.3
+
+### Patch Changes
+
+- cors added to next.js handler
+
 ## 0.2.2
 
 ### Patch Changes
