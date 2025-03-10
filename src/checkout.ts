@@ -1,26 +1,26 @@
 import { createApiClient } from "./utils/axios";
 
-interface LineItem {
+export interface LineItem {
   quantity: number;
   productId?: string;
   variantOptions: { name: string; value: string }[];
   discountId?: string;
 }
 
-interface CheckoutCreateParams {
+export interface CheckoutCreateParams {
   type: "hosted" | "embed";
   customerId?: string;
   lineItems: LineItem[];
 }
 
-interface CheckoutUpdateParams {
+export interface CheckoutUpdateParams {
   email?: string;
   phone?: string;
   lineItems?: LineItem[];
   customerId?: string;
 }
 
-interface ShippingRate {
+export interface ShippingRate {
   id: string;
   rate: number;
   provider: string;
@@ -28,7 +28,7 @@ interface ShippingRate {
   estimatedDays: number;
 }
 
-interface Address {
+export interface Address {
   name: string;
   company?: string;
   address: string;
@@ -40,7 +40,7 @@ interface Address {
   phone: string;
 }
 
-interface CheckoutSession {
+export interface CheckoutSession {
   id: string;
   createdAt: Date;
   updatedAt: Date;
