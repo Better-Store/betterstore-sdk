@@ -21,4 +21,5 @@ class BetterStore {
 }
 
 export default BetterStore;
+export { getCheckoutEmbedProps } from "./helpers/react";
 export { createNextJSHandler } from "./route-handelers/index";
