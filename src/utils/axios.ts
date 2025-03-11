@@ -42,10 +42,12 @@ export const createApiClient = (apiKey: string) => {
         apiError.status = 503;
         apiError.message = "Service unavailable - no response from server";
         apiError.code = "SERVICE_UNAVAILABLE";
+        apiError.details = error.request;
       } else {
         apiError.status = 500;
         apiError.message = "Request configuration error";
         apiError.code = "REQUEST_SETUP_ERROR";
+        apiError.details = error;
       }
 
       throw apiError;
