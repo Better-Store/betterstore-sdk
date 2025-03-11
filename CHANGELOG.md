@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.2.12
+
+### Patch Changes
+
+- proxies added back
+
 ## 0.2.11
 
 ### Patch Changes
