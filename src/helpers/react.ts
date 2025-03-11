@@ -1,17 +1,11 @@
-import type {
-  CheckoutSession,
-  CheckoutUpdateParams,
-  ShippingRate,
-} from "../checkout";
 import type BetterStore from "../index";
 
 export function getCheckoutEmbedProps(betterStore: BetterStore): {
-  retrieveCheckout: (idOrSecret: string) => Promise<CheckoutSession>;
-  updateCheckout: (
-    checkoutId: string,
-    params: CheckoutUpdateParams
-  ) => Promise<CheckoutSession>;
-  getShippingRates: (checkoutId: string) => Promise<ShippingRate[]>;
+  retrieveCheckout: InstanceType<typeof BetterStore>["checkout"]["retrieve"];
+  updateCheckout: InstanceType<typeof BetterStore>["checkout"]["update"];
+  getShippingRates: InstanceType<
+    typeof BetterStore
+  >["checkout"]["getShippingRates"];
 } {
   return {
     retrieveCheckout: betterStore.checkout.retrieve,

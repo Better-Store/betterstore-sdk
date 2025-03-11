@@ -1,5 +1,18 @@
 # @betterstore/sdk
 
+## 0.2.9
+
+### Patch Changes
+
+- unneseseary api prefix removal change, bug fixes, removed next.js handler
+
+## 0.2.8
+
+### Patch Changes
+
+- cicd
+- cicd test
+
 ## 0.2.7
 
 ### Patch Changes

@@ -97,11 +97,11 @@ class Checkout {
   }
 
   /**
-   * Retrieve a checkout session by ID or client secret
+   * Retrieve a checkout session by ID
    */
-  async retrieve(idOrSecret: string): Promise<CheckoutSession> {
+  async retrieve(checkoutId: string): Promise<CheckoutSession> {
     const data: CheckoutSession = await this.apiClient.get(
-      `/checkout/${idOrSecret}`
+      `/checkout/${checkoutId}`
     );
     return data;
   }
