@@ -21,4 +21,4 @@ class BetterStore {
 }
 
 export default BetterStore;
-export { getCheckoutEmbedProps } from "./helpers/react";
+export * from "./proxies";
