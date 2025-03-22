@@ -1,11 +1,9 @@
-import { createApiClient } from "./utils/axios";
-
-interface VariantOption {
+export interface VariantOption {
   name: string;
   value: string;
 }
 
-interface ProductVariant {
+export interface ProductVariant {
   sku: string;
   images: string[];
   stockAvailable: number;
@@ -16,18 +14,18 @@ interface ProductVariant {
   variantOptions: VariantOption[];
 }
 
-interface ProductOption {
+export interface ProductOption {
   name: string;
   values: string[];
 }
 
-enum ProductStatus {
+export enum ProductStatus {
   DRAFT = "DRAFT",
   ACTIVE = "ACTIVE",
   ARCHIVED = "ARCHIVED",
 }
 
-interface Product {
+export interface Product {
   id: string;
   title: string;
   description?: string;
@@ -52,30 +50,3 @@ interface Product {
   options: ProductOption[];
   productVariants: ProductVariant[];
 }
-
-class Products {
-  private apiClient: ReturnType<typeof createApiClient>;
-
-  constructor(apiKey: string) {
-    this.apiClient = createApiClient(apiKey);
-  }
-
-  async list(): Promise<Omit<Product, "productVariants">[]> {
-    const data: Omit<Product, "productVariants">[] =
-      await this.apiClient.get("/products");
-
-    return data;
-  }
-
-  async retrieve(productId: string): Promise<Product> {
-    const data: Product = await this.apiClient.get(`/products/${productId}`);
-
-    if (!data) {
-      throw new Error("Product not found");
-    }
-
-    return data;
-  }
-}
-
-export default Products;

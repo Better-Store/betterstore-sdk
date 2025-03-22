@@ -20,5 +20,7 @@ class BetterStore {
   }
 }
 
-export default BetterStore;
 export * from "./proxies";
+export * from "./types";
+
+export default BetterStore;

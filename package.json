@@ -1,6 +1,6 @@
 {
   "name": "@betterstore/sdk",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "E-commerce for Developers",
   "private": false,
   "publishConfig": {
