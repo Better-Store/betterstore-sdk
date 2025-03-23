@@ -16,7 +16,7 @@ class Customer {
    * Create a new customer
    */
   async create(params: CustomerCreateParams): Promise<CustomerType> {
-    const data: CustomerType = await this.apiClient.post("/customers", params);
+    const data: CustomerType = await this.apiClient.post("/customer", params);
     return data;
   }
 
@@ -25,7 +25,7 @@ class Customer {
    */
   async retrieve(idOrEmail: string): Promise<CustomerType> {
     const data: CustomerType = await this.apiClient.get(
-      `/customers/${idOrEmail}`
+      `/customer/${idOrEmail}`
     );
 
     if (!data) {
@@ -43,7 +43,7 @@ class Customer {
     params: CustomerUpdateParams
   ): Promise<CustomerType> {
     const data: CustomerType = await this.apiClient.put(
-      `/customers/${customerId}`,
+      `/customer/${customerId}`,
       params
     );
     return data;
@@ -53,7 +53,7 @@ class Customer {
    * Delete a customer
    */
   async delete(customerId: string): Promise<void> {
-    await this.apiClient.delete(`/customers/${customerId}`);
+    await this.apiClient.delete(`/customer/${customerId}`);
   }
 }
 
