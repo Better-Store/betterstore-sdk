@@ -1,26 +1,23 @@
 import Checkout from "./checkout";
+import Client from "./client";
 import Customer from "./customer";
 import Products from "./products";
 
-class BetterStore {
-  public checkout: Checkout;
-  public products: Products;
-  public customer: Customer;
-  // private apiKey: string;
-
-  constructor(apiKey: string) {
-    if (!apiKey) {
-      throw new Error("API key is required.");
-    }
-
-    // this.apiKey = apiKey;
-    this.checkout = new Checkout(apiKey);
-    this.products = new Products(apiKey);
-    this.customer = new Customer(apiKey);
+export function betterStore(config: { apiKey: string }) {
+  if (!config.apiKey) {
+    throw new Error("API key is required.");
   }
+
+  return {
+    checkout: new Checkout(config.apiKey),
+    products: new Products(config.apiKey),
+    customer: new Customer(config.apiKey),
+  };
+}
+
+export function createStoreClient() {
+  return new Client();
 }
 
 export * from "./proxies";
 export * from "./types";
-
-export default BetterStore;
