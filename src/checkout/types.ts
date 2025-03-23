@@ -14,8 +14,6 @@ export interface CheckoutCreateParams {
 }
 
 export interface CheckoutUpdateParams {
-  email?: string;
-  phone?: string;
   lineItems?: LineItem[];
   customerId?: string;
 }
@@ -32,8 +30,6 @@ export interface CheckoutSession {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  email?: string;
-  phone?: string;
   clientSecret: string;
   lineItems: {
     quantity: number;
