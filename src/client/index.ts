@@ -18,7 +18,7 @@ class Client {
     clientSecret: string,
     checkoutId: string
   ): Promise<CheckoutSession> {
-    const apiClient = createApiClient(clientSecret);
+    const apiClient = createApiClient("");
     const data: CheckoutSession = await apiClient.get(
       `/checkout/${checkoutId}`
     );

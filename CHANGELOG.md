@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.2
+
+### Patch Changes
+
+- remove client secret from retrieve checkout
+
 ## 0.3.1
 
 ### Patch Changes
