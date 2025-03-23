@@ -3,7 +3,7 @@ import Client from "./client";
 import Customer from "./customer";
 import Products from "./products";
 
-export function betterStore(config: { apiKey: string }) {
+export default function betterStore(config: { apiKey: string }) {
   if (!config.apiKey) {
     throw new Error("API key is required.");
   }
@@ -19,5 +19,4 @@ export function createStoreClient() {
   return new Client();
 }
 
-export * from "./proxies";
 export * from "./types";
