@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.7
+
+### Patch Changes
+
+- required client secret
+
 ## 0.3.6
 
 ### Patch Changes

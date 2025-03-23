@@ -20,8 +20,11 @@ class Client {
   /**
    * Retrieve a checkout session by ID
    */
-  async retrieveCheckout(checkoutId: string): Promise<CheckoutSession> {
-    const apiClient = createApiClient("none", this.proxy);
+  async retrieveCheckout(
+    clientSecret: string,
+    checkoutId: string
+  ): Promise<CheckoutSession> {
+    const apiClient = createApiClient(clientSecret, this.proxy);
     const data: CheckoutSession = await apiClient.get(
       `/checkout/${checkoutId}`
     );
