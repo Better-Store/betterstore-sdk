@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.6
+
+### Patch Changes
+
+- define api secret for retrieve checkout request
+
 ## 0.3.5
 
 ### Patch Changes
