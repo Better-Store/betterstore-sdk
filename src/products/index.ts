@@ -4,8 +4,8 @@ import { Product } from "./types";
 class Products {
   private apiClient: ReturnType<typeof createApiClient>;
 
-  constructor(apiKey: string) {
-    this.apiClient = createApiClient(apiKey);
+  constructor(apiKey: string, proxy?: string) {
+    this.apiClient = createApiClient(apiKey, proxy);
   }
 
   async list(): Promise<Omit<Product, "productVariants">[]> {

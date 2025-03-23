@@ -11,11 +11,17 @@ import {
 import { createApiClient } from "../utils/axios";
 
 class Client {
+  private proxy?: string;
+
+  constructor(proxy?: string) {
+    this.proxy = proxy;
+  }
+
   /**
    * Retrieve a checkout session by ID
    */
   async retrieveCheckout(checkoutId: string): Promise<CheckoutSession> {
-    const apiClient = createApiClient("");
+    const apiClient = createApiClient("", this.proxy);
     const data: CheckoutSession = await apiClient.get(
       `/checkout/${checkoutId}`
     );
@@ -30,7 +36,7 @@ class Client {
     checkoutId: string,
     params: CheckoutUpdateParams
   ): Promise<CheckoutSession> {
-    const apiClient = createApiClient(clientSecret);
+    const apiClient = createApiClient(clientSecret, this.proxy);
     const data: CheckoutSession = await apiClient.put(
       `/checkout/${checkoutId}`,
       params
@@ -45,7 +51,7 @@ class Client {
     clientSecret: string,
     checkoutId: string
   ): Promise<ShippingRate[]> {
-    const apiClient = createApiClient(clientSecret);
+    const apiClient = createApiClient(clientSecret, this.proxy);
     const data: ShippingRate[] = await apiClient.get(
       `/checkout/shipping/${checkoutId}`
     );
@@ -59,7 +65,7 @@ class Client {
     clientSecret: string,
     checkoutId: string
   ): Promise<string> {
-    const apiClient = createApiClient(clientSecret);
+    const apiClient = createApiClient(clientSecret, this.proxy);
     const data: string = await apiClient.post(
       `/checkout/payment/${checkoutId}`
     );
@@ -73,7 +79,7 @@ class Client {
     clientSecret: string,
     params: CustomerCreateParams
   ): Promise<CustomerType> {
-    const apiClient = createApiClient(clientSecret);
+    const apiClient = createApiClient(clientSecret, this.proxy);
     const data: CustomerType = await apiClient.post("/customers", params);
     return data;
   }
@@ -85,7 +91,7 @@ class Client {
     clientSecret: string,
     idOrEmail: string
   ): Promise<CustomerType> {
-    const apiClient = createApiClient(clientSecret);
+    const apiClient = createApiClient(clientSecret, this.proxy);
     const data: CustomerType = await apiClient.get(`/customers/${idOrEmail}`);
 
     if (!data) {
@@ -103,7 +109,7 @@ class Client {
     customerId: string,
     params: CustomerUpdateParams
   ): Promise<CustomerType> {
-    const apiClient = createApiClient(clientSecret);
+    const apiClient = createApiClient(clientSecret, this.proxy);
     const data: CustomerType = await apiClient.put(
       `/customers/${customerId}`,
       params

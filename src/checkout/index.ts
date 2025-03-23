@@ -9,8 +9,8 @@ import {
 class Checkout {
   private apiClient: ReturnType<typeof createApiClient>;
 
-  constructor(apiKey: string) {
-    this.apiClient = createApiClient(apiKey);
+  constructor(apiKey: string, proxy?: string) {
+    this.apiClient = createApiClient(apiKey, proxy);
   }
 
   /**

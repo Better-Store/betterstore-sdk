@@ -10,9 +10,9 @@ interface ApiError {
   details?: unknown;
 }
 
-export const createApiClient = (apiKey: string) => {
+export const createApiClient = (apiKey: string, proxy?: string) => {
   const client = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: proxy ?? API_BASE_URL,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,

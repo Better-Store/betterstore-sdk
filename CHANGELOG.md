@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.4
+
+### Patch Changes
+
+- proxy option added
+
 ## 0.3.3
 
 ### Patch Changes
