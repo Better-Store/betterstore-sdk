@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.1
+
+### Patch Changes
+
+- new address type
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,3 +1,5 @@
+import { Address } from "../types";
+
 export interface LineItem {
   quantity: number;
   productId?: string;
@@ -24,18 +26,6 @@ export interface ShippingRate {
   provider: string;
   service: string;
   estimatedDays: number;
-}
-
-export interface Address {
-  name: string;
-  company?: string;
-  address: string;
-  city: string;
-  state: string;
-  country: string;
-  apartment?: string;
-  postalCode: string;
-  phone: string;
 }
 
 export interface CheckoutSession {

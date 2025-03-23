@@ -1,21 +1,21 @@
-export interface CustomerAddress {
+export type Address = {
   name: string;
   company?: string;
-  address: string;
+  line1: string;
+  line2?: string;
   city: string;
-  state: string;
+  state?: string;
   country: string;
-  apartment?: string;
-  postalCode: string;
+  zipCode: string;
   phone: string;
-}
+};
 
 export interface CustomerCreateParams {
   firstName: string;
   lastName: string;
   email: string;
   phone?: string;
-  address?: CustomerAddress;
+  address?: Address;
   isSubscribedEmail?: boolean;
   isSubscribedSMS?: boolean;
 }
@@ -25,7 +25,7 @@ export interface CustomerUpdateParams {
   lastName?: string;
   email?: string;
   phone?: string;
-  address?: CustomerAddress;
+  address?: Address;
   isSubscribedEmail?: boolean;
   isSubscribedSMS?: boolean;
 }
