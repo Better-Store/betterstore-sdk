@@ -83,7 +83,7 @@ class Client {
     params: CustomerCreateParams
   ): Promise<CustomerType> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: CustomerType = await apiClient.post("/customers", params);
+    const data: CustomerType = await apiClient.post("/customer", params);
     return data;
   }
 
@@ -95,7 +95,7 @@ class Client {
     idOrEmail: string
   ): Promise<CustomerType> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: CustomerType = await apiClient.get(`/customers/${idOrEmail}`);
+    const data: CustomerType = await apiClient.get(`/customer/${idOrEmail}`);
 
     if (!data) {
       throw new Error("Customer not found");
@@ -114,7 +114,7 @@ class Client {
   ): Promise<CustomerType> {
     const apiClient = createApiClient(clientSecret, this.proxy);
     const data: CustomerType = await apiClient.put(
-      `/customers/${customerId}`,
+      `/customer/${customerId}`,
       params
     );
     return data;
