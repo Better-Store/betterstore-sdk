@@ -42,7 +42,7 @@ export const createApiClient = (apiKey: string, proxy?: string) => {
         apiError.status = 503;
         apiError.message = "Service unavailable - no response from server";
         apiError.code = "SERVICE_UNAVAILABLE";
-        apiError.details = error.request;
+        apiError.details = error;
       } else {
         apiError.status = 500;
         apiError.message = "Request configuration error";

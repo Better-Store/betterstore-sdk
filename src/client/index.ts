@@ -11,7 +11,7 @@ import {
 import { createApiClient } from "../utils/axios";
 
 class Client {
-  private proxy?: string;
+  public proxy?: string;
 
   constructor(proxy?: string) {
     this.proxy = proxy;

@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.5
+
+### Patch Changes
+
+- private changed to public
+
 ## 0.3.4
 
 ### Patch Changes
