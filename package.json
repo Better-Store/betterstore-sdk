@@ -1,6 +1,6 @@
 {
   "name": "@betterstore/sdk",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "description": "E-commerce for Developers",
   "private": false,
   "publishConfig": {
@@ -29,7 +29,6 @@
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
     "@types/axios": "^0.14.4",
-    "@types/shippo": "^1.7.8",
     "next": "^15.2.1",
     "prettier": "^3.5.3",
     "tsup": "^8.4.0",
@@ -37,6 +36,7 @@
   },
   "dependencies": {
     "axios": "^1.8.2",
+    "shippo": "^2.15.0",
     "zod": "^3.24.2"
   }
 }
