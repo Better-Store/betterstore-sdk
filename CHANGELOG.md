@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.10
+
+### Patch Changes
+
+- shipping rate type fix metadata added
+
 ## 0.3.9
 
 ### Patch Changes

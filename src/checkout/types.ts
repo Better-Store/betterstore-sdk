@@ -5,6 +5,7 @@ export interface LineItem {
   productId?: string;
   variantOptions: { name: string; value: string }[];
   discountId?: string;
+  metadata?: string;
 }
 
 export interface CheckoutCreateParams {
@@ -18,33 +19,14 @@ export interface CheckoutUpdateParams {
   customerId?: string;
 }
 
-export interface ShippingRate {
-  id: string;
-  rate: number;
-  provider: string;
-  service: string;
-  estimatedDays: number;
-}
+export { Rate as ShippingRate } from "shippo";
 
 export interface CheckoutSession {
   id: string;
   createdAt: Date;
   updatedAt: Date;
   clientSecret: string;
-  lineItems: {
-    quantity: number;
-    discount?: any; // Match the Discount type if needed
-    variantOptions: { name: string; value: string }[];
-    product?: {
-      id: string;
-      title: string;
-      description?: string;
-      images: string[];
-      category: string;
-      tags: string[];
-      priceInCents: number;
-    };
-  }[];
+  lineItems: LineItem[];
   total?: number;
   subtotal?: number;
   tax?: number;
