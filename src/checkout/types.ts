@@ -2,7 +2,7 @@ import { Address } from "../types";
 
 export interface LineItem {
   quantity: number;
-  productId?: string;
+  productId: string;
   variantOptions: { name: string; value: string }[];
   discountId?: string;
   metadata?: string;
