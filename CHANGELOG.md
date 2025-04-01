@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.13
+
+### Patch Changes
+
+- id added to customer
+
 ## 0.3.12
 
 ### Patch Changes

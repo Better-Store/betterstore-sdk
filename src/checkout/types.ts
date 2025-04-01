@@ -39,6 +39,7 @@ export interface CheckoutSession {
     | "CANCELED"
     | "FAILED";
   customer?: {
+    id: string;
     address?: Address;
     email?: string;
   };
