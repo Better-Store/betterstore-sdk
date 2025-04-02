@@ -17,6 +17,16 @@ export interface CheckoutCreateParams {
 export interface CheckoutUpdateParams {
   lineItems?: LineItem[];
   customerId?: string;
+  tax?: number;
+  shipping?: number;
+
+  shippingInfo?: {
+    rateId: string;
+    provider?: string;
+    name?: string;
+    trackingNumber?: string;
+    trackingUrl?: string;
+  };
 }
 
 export { Rate as ShippingRate } from "shippo";
