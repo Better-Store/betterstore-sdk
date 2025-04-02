@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.14
+
+### Patch Changes
+
+- shipping info updatable
+
 ## 0.3.13
 
 ### Patch Changes
