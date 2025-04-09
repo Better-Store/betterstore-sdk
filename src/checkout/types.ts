@@ -1,10 +1,11 @@
-import { Address } from "../types";
+import { Address, Product } from "../types";
 
 export interface LineItem {
   quantity: number;
   productId: string;
   variantOptions: { name: string; value: string }[];
   discountId?: string;
+  product?: Pick<Product, "title" | "priceInCents" | "images">;
   metadata?: string;
 }
 
