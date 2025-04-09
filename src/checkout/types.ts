@@ -9,10 +9,16 @@ export interface LineItem {
   metadata?: string;
 }
 
+export type Currency = {
+  code: string;
+  exchangeRate: number;
+};
+
 export interface CheckoutCreateParams {
   type: "hosted" | "embed";
   customerId?: string;
   lineItems: LineItem[];
+  currency?: Currency;
 }
 
 export interface CheckoutUpdateParams {
@@ -20,6 +26,7 @@ export interface CheckoutUpdateParams {
   customerId?: string;
   tax?: number;
   shipping?: number;
+  currency?: Currency;
 
   shippingInfo?: {
     rateId: string;
@@ -43,6 +50,7 @@ export interface CheckoutSession {
   tax?: number;
   shipping?: number;
   currency: string;
+  exchangeRate: number;
   status:
     | "IN_PROGRESS"
     | "PAYMENT_PENDING"

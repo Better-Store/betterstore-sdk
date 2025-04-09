@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.16
+
+### Patch Changes
+
+- multi currency functionality
+
 ## 0.3.15
 
 ### Patch Changes
