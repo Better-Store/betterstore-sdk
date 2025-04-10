@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.21
+
+### Patch Changes
+
+- params optimalization
+
 ## 0.3.20
 
 ### Patch Changes

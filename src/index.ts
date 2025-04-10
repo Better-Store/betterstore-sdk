@@ -19,12 +19,12 @@ export default function betterStore(config: {
   };
 }
 
-export function createStoreClient(config: { proxy?: string }) {
-  return new Client(config.proxy);
+export function createStoreClient(config?: { proxy?: string }) {
+  return new Client(config?.proxy);
 }
 
-export function createStoreHelpers(config: { proxy?: string }) {
-  return new Helpers(config.proxy);
+export function createStoreHelpers(config?: { proxy?: string }) {
+  return new Helpers(config?.proxy);
 }
 
 export * from "./types";
