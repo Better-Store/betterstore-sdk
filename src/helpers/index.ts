@@ -12,12 +12,14 @@ class Helpers {
     currency: string,
     exchangeRate?: number
   ): string {
-    const price = (priceInCents / 100) * (exchangeRate ?? 1);
+    const amount = (priceInCents / 100) * (exchangeRate ?? 1);
+    const isWhole = amount % 1 === 0;
     const formattedPrice = new Intl.NumberFormat(undefined, {
       style: "currency",
       currency,
-      minimumFractionDigits: 2,
-    }).format(price);
+      minimumFractionDigits: isWhole ? 0 : 2,
+      maximumFractionDigits: isWhole ? 0 : 2,
+    }).format(amount);
 
     return formattedPrice;
   }

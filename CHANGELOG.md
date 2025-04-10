@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.18
+
+### Patch Changes
+
+- currency logic tweak
+
 ## 0.3.17
 
 ### Patch Changes
