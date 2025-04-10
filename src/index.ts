@@ -1,6 +1,7 @@
 import Checkout from "./checkout";
 import Client from "./client";
 import Customer from "./customer";
+import Helpers from "./helpers";
 import Products from "./products";
 
 export default function betterStore(config: {
@@ -15,6 +16,7 @@ export default function betterStore(config: {
     checkout: new Checkout(config.apiKey, config.proxy),
     products: new Products(config.apiKey, config.proxy),
     customer: new Customer(config.apiKey, config.proxy),
+    helpers: new Helpers(config.apiKey, config.proxy),
   };
 }
 

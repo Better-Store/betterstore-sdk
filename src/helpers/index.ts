@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createApiClient } from "../utils/axios";
 
 class Helpers {
@@ -28,15 +29,17 @@ class Helpers {
     baseCurrency: string,
     targetCurrency: string
   ): Promise<number> {
-    const data: number | undefined = await this.apiClient.get(
-      `/helpers/exchange-rate?baseCurrency=${baseCurrency}&targetCurrency=${targetCurrency}`
+    const { data } = await axios.get(
+      `https://api.exchangerate-api.com/v4/latest/${baseCurrency}`
     );
 
-    if (!data) {
-      throw new Error("Could not get exchange rate");
+    const rate = data.rates[targetCurrency];
+
+    if (!rate) {
+      throw new Error("Could not get exchange rate for target currency");
     }
 
-    return data;
+    return rate;
   }
 }
 

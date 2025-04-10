@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.19
+
+### Patch Changes
+
+- exchange rate external api
+
 ## 0.3.18
 
 ### Patch Changes
