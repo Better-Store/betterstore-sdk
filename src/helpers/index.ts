@@ -1,11 +1,10 @@
 import axios from "axios";
-import { createApiClient } from "../utils/axios";
 
 class Helpers {
-  private apiClient: ReturnType<typeof createApiClient>;
+  public proxy?: string;
 
-  constructor(apiKey: string, proxy?: string) {
-    this.apiClient = createApiClient(apiKey, proxy);
+  constructor(proxy?: string) {
+    this.proxy = proxy;
   }
 
   formatPrice(

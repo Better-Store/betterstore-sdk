@@ -16,12 +16,15 @@ export default function betterStore(config: {
     checkout: new Checkout(config.apiKey, config.proxy),
     products: new Products(config.apiKey, config.proxy),
     customer: new Customer(config.apiKey, config.proxy),
-    helpers: new Helpers(config.apiKey, config.proxy),
   };
 }
 
 export function createStoreClient(config: { proxy?: string }) {
   return new Client(config.proxy);
+}
+
+export function createStoreHelpers(config: { proxy?: string }) {
+  return new Helpers(config.proxy);
 }
 
 export * from "./types";

@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.20
+
+### Patch Changes
+
+- making helpers accesible from client
+
 ## 0.3.19
 
 ### Patch Changes
