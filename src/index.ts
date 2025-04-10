@@ -4,7 +4,7 @@ import Customer from "./customer";
 import Helpers from "./helpers";
 import Products from "./products";
 
-export default function betterStore(config: {
+export default function createBetterStore(config: {
   apiKey: string;
   proxy?: string;
 }) {
