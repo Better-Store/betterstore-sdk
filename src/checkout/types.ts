@@ -9,10 +9,7 @@ export interface LineItem {
   metadata?: string;
 }
 
-export type Currency = {
-  code: string;
-  exchangeRate: number;
-};
+export type Currency = string;
 
 export interface CheckoutCreateParams {
   type: "hosted" | "embed";

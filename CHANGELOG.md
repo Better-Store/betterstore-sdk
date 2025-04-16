@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.25
+
+### Patch Changes
+
+- exchange rate setting disabled
+
 ## 0.3.24
 
 ### Patch Changes
