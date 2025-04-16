@@ -1,4 +1,4 @@
-import axios from "axios";
+import { createApiClient } from "../utils/axios";
 
 class Helpers {
   public proxy?: string;
@@ -66,9 +66,8 @@ class Helpers {
     baseCurrency: string,
     targetCurrency: string
   ): Promise<number> {
-    const { data } = await axios.get(
-      `https://api.exchangerate-api.com/v4/latest/${baseCurrency}`
-    );
+    const apiClient = createApiClient("", this.proxy);
+    const { data } = await apiClient.get(`/helpers/rates/${baseCurrency}`);
 
     const rate = data.rates[targetCurrency];
 
