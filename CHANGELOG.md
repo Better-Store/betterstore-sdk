@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.26
+
+### Patch Changes
+
+- disabeling currency update
+
 ## 0.3.25
 
 ### Patch Changes

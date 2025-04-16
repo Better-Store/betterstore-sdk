@@ -23,7 +23,6 @@ export interface CheckoutUpdateParams {
   customerId?: string;
   tax?: number;
   shipping?: number;
-  currency?: Currency;
 
   shippingInfo?: {
     rateId: string;
