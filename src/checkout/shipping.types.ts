@@ -2,6 +2,7 @@ export type ShippingRate = ZasilkovnaRate;
 
 export interface BaseRate {
   provider: string;
+  name: string;
   price: number;
 }
 
