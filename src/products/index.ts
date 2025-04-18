@@ -1,5 +1,5 @@
 import { createApiClient } from "../utils/axios";
-import { Product } from "./types";
+import { Product, ProductWithoutVariants } from "./types";
 
 class Products {
   private apiClient: ReturnType<typeof createApiClient>;
@@ -8,8 +8,8 @@ class Products {
     this.apiClient = createApiClient(apiKey, proxy);
   }
 
-  async list(): Promise<Omit<Product, "productVariants">[]> {
-    const data: Omit<Product, "productVariants">[] =
+  async list(): Promise<ProductWithoutVariants[]> {
+    const data: ProductWithoutVariants[] =
       await this.apiClient.get("/products");
 
     return data;

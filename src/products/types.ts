@@ -50,3 +50,6 @@ export interface Product {
   options: ProductOption[];
   productVariants: ProductVariant[];
 }
+
+export interface ProductWithoutVariants
+  extends Omit<Product, "productVariants"> {}
