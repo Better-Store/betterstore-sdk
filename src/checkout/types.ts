@@ -26,7 +26,6 @@ export interface CheckoutUpdateParams {
 
   shipmentInfo?: {
     provider: string;
-    price: number;
     name?: string;
     pickupPointId?: string;
     trackingNumber?: string;
