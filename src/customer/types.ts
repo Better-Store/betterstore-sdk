@@ -6,6 +6,7 @@ export type Address = {
   city: string;
   state?: string;
   country: string;
+  countryCode: string;
   zipCode: string;
   phone: string;
 };

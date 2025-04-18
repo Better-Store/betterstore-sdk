@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.30
+
+### Patch Changes
+
+- adding country code prop
+
 ## 0.3.29
 
 ### Patch Changes
