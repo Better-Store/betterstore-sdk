@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.27
+
+### Patch Changes
+
+- migrate from shippo to custom solution
+
 ## 0.3.26
 
 ### Patch Changes

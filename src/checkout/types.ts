@@ -25,15 +25,15 @@ export interface CheckoutUpdateParams {
   shipping?: number;
 
   shippingInfo?: {
-    rateId: string;
-    provider?: string;
+    provider: string;
+    price: number;
     name?: string;
     trackingNumber?: string;
     trackingUrl?: string;
   };
 }
 
-export { Rate as ShippingRate } from "shippo";
+export { ShippingRate } from "./shipping.types";
 
 export interface CheckoutSession {
   id: string;

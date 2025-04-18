@@ -11,9 +11,6 @@ importers:
       axios:
         specifier: ^1.8.2
         version: 1.8.2
-      shippo:
-        specifier: ^2.15.0
-        version: 2.15.0(zod@3.24.2)
       zod:
         specifier: ^3.24.2
         version: 3.24.2
@@ -1166,11 +1163,6 @@ packages:
   shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-
-  shippo@2.15.0:
-    resolution: {integrity: sha512-ND6QT3xSW8tMCkNNGqIbtpuuGR/CqPBa7dyYuHmT1F554LoqA9K24R2iVLC/yXO5LTT2xskbkY/IKUg2RazVFg==}
-    peerDependencies:
-      zod: '>= 3'
 
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
@@ -2368,10 +2360,6 @@ snapshots:
       shebang-regex: 3.0.0
 
   shebang-regex@3.0.0: {}
-
-  shippo@2.15.0(zod@3.24.2):
-    dependencies:
-      zod: 3.24.2
 
   signal-exit@4.1.0: {}
 
