@@ -24,10 +24,11 @@ export interface CheckoutUpdateParams {
   tax?: number;
   shipping?: number;
 
-  shippingInfo?: {
+  shipmentInfo?: {
     provider: string;
     price: number;
     name?: string;
+    pickupPointId?: string;
     trackingNumber?: string;
     trackingUrl?: string;
   };
