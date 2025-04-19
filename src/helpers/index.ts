@@ -10,7 +10,7 @@ class Helpers {
   formatPrice(
     priceInCents: number,
     currency: string,
-    exchangeRate?: number
+    exchangeRate?: number | null
   ): string {
     const amount = (priceInCents / 100) * (exchangeRate ?? 1);
     const isWhole = amount % 1 === 0;
