@@ -19,12 +19,9 @@ export interface CheckoutCreateParams {
 }
 
 export interface CheckoutUpdateParams {
-  lineItems?: LineItem[];
   customerId?: string;
-  tax?: number;
-  shipping?: number;
 
-  shipmentInfo?: {
+  shipmentData?: {
     provider: string;
     name?: string;
     pickupPointId?: string;
