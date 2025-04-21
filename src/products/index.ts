@@ -15,11 +15,12 @@ class Products {
     return data;
   }
 
-  async retrieve(productId: string): Promise<Product> {
+  async retrieve(productId: string): Promise<Product | null> {
     const data: Product = await this.apiClient.get(`/products/${productId}`);
 
     if (!data) {
-      throw new Error("Product not found");
+      console.error(`Product with id ${productId} not found`);
+      return null;
     }
 
     return data;
