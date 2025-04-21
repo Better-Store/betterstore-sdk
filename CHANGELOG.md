@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.36
+
+### Patch Changes
+
+- line items type changed
+
 ## 0.3.35
 
 ### Patch Changes

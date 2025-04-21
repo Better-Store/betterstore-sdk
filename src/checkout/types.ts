@@ -5,8 +5,27 @@ export interface LineItem {
   productId: string;
   variantOptions: { name: string; value: string }[];
   discountId?: string;
-  product?: Pick<Product, "title" | "priceInCents" | "images">;
+  product?: Pick<
+    Product,
+    | "title"
+    | "priceInCents"
+    | "images"
+    | "id"
+    | "description"
+    | "category"
+    | "tags"
+  > & {
+    productVariants: {
+      variantOptions: { name: string; value: string }[];
+      priceInCents: number;
+      images: string[];
+    }[];
+  };
   metadata?: string;
+}
+
+export interface LineItemCreate extends Omit<LineItem, "product"> {
+  product?: Pick<Product, "title" | "priceInCents" | "images">;
 }
 
 export type Currency = string;
@@ -14,7 +33,7 @@ export type Currency = string;
 export interface CheckoutCreateParams {
   type: "hosted" | "embed";
   customerId?: string;
-  lineItems: LineItem[];
+  lineItems: LineItemCreate[];
   currency?: Currency;
 }
 
