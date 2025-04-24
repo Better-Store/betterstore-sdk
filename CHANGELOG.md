@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.37
+
+### Patch Changes
+
+- metadata as record
+
 ## 0.3.36
 
 ### Patch Changes

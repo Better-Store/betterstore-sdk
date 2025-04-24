@@ -24,8 +24,9 @@ export interface LineItem {
   metadata?: string;
 }
 
-export interface LineItemCreate extends Omit<LineItem, "product"> {
+export interface LineItemCreate extends Omit<LineItem, "product" | "metadata"> {
   product?: Pick<Product, "title" | "priceInCents" | "images">;
+  metadata?: RecursiveRecord;
 }
 
 export type Currency = string;
@@ -75,3 +76,13 @@ export interface CheckoutSession {
     email?: string;
   };
 }
+
+type RecursiveRecord = {
+  [key: string]:
+    | string
+    | number
+    | boolean
+    | null
+    | RecursiveRecord
+    | RecursiveRecord[];
+};
