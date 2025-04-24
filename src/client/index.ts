@@ -67,12 +67,19 @@ class Client {
   async generateCheckoutsPaymentSecret(
     clientSecret: string,
     checkoutId: string
-  ): Promise<string> {
+  ): Promise<{
+    paymentSecret: string;
+    publicKey: string;
+  }> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: string = await apiClient.post(
-      `/checkout/payment/${checkoutId}`
-    );
-    return data;
+    const data: {
+      paymentSecret: string;
+      publicKey: string;
+    } = await apiClient.post(`/checkout/payment/${checkoutId}`);
+    return {
+      paymentSecret: data.paymentSecret,
+      publicKey: data.publicKey,
+    };
   }
 
   /**
