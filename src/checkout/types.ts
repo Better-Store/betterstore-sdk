@@ -78,11 +78,5 @@ export interface CheckoutSession {
 }
 
 type RecursiveRecord = {
-  [key: string]:
-    | string
-    | number
-    | boolean
-    | null
-    | RecursiveRecord
-    | RecursiveRecord[];
+  [key: string]: any;
 };

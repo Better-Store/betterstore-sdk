@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.38
+
+### Patch Changes
+
+- type changed
+
 ## 0.3.37
 
 ### Patch Changes
