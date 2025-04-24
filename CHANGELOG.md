@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.39
+
+### Patch Changes
+
+- generate secret bug type fix
+
 ## 0.3.38
 
 ### Patch Changes

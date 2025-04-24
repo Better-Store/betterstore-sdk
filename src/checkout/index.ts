@@ -68,11 +68,17 @@ class Checkout {
   /**
    * Generate payment secret for a checkout session
    */
-  async generatePaymentSecret(checkoutId: string): Promise<string> {
-    const data: string = await this.apiClient.post(
-      `/checkout/payment/${checkoutId}`
-    );
-    return data;
+  async generatePaymentSecret(checkoutId: string): Promise<{
+    paymentSecret: string;
+    publicKey: string;
+  }> {
+    const data: { paymentSecret: string; publicKey: string } = await this
+      .apiClient.post(`
+      /checkout/payment/${checkoutId}`);
+    return {
+      paymentSecret: data.paymentSecret,
+      publicKey: data.publicKey,
+    };
   }
 }
 
