@@ -1,26 +1,38 @@
-import { Address, Product } from "../types";
+import { Address, Product, ProductVariant } from "../types";
+
+type ProductData = Pick<
+  Product,
+  | "title"
+  | "description"
+  | "images"
+  | "category"
+  | "tags"
+  | "isPhysical"
+  | "weightInGrams"
+  | "heightInCm"
+  | "widthInCm"
+  | "lengthInCm"
+  | "priceInCents"
+> & {
+  selectedVariant: Pick<
+    ProductVariant,
+    | "sku"
+    | "images"
+    | "isPhysical"
+    | "weightInGrams"
+    | "heightInCm"
+    | "widthInCm"
+    | "lengthInCm"
+    | "priceInCents"
+    | "variantOptions"
+  >;
+};
 
 export interface LineItem {
   quantity: number;
-  productId: string;
   variantOptions: { name: string; value: string }[];
   discountId?: string;
-  product?: Pick<
-    Product,
-    | "title"
-    | "priceInCents"
-    | "images"
-    | "id"
-    | "description"
-    | "category"
-    | "tags"
-  > & {
-    productVariants: {
-      variantOptions: { name: string; value: string }[];
-      priceInCents: number;
-      images: string[];
-    }[];
-  };
+  product: ProductData;
   metadata?: string;
 }
 

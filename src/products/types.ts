@@ -6,11 +6,15 @@ export interface VariantOption {
 export interface ProductVariant {
   sku: string;
   images: string[];
-  stockAvailable: number;
-  stockCommited: number;
-  stockUnavailable: number;
+
+  isPhysical: boolean;
+  weightInGrams?: number;
+  heightInCm?: number;
+  widthInCm?: number;
+  lengthInCm?: number;
+
   priceInCents: number;
-  productId: string;
+
   variantOptions: VariantOption[];
 }
 
