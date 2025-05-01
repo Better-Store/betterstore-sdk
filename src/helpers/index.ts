@@ -44,18 +44,16 @@ class Helpers {
   formatCurrency(currency: string): string {
     const locale = currencyLocales[currency.toUpperCase()] ?? undefined;
 
-    const currencyFormatter = new Intl.NumberFormat(locale, {
+    const formattedCurrency = new Intl.NumberFormat(locale, {
       style: "currency",
       currency,
       currencyDisplay: "symbol",
     });
 
-    const formattedCurrency =
-      currencyFormatter
-        .formatToParts(0)
-        .find((part) => part.type === "currency")?.value ?? currency;
-
-    return formattedCurrency;
+    return formattedCurrency
+      .format(0)
+      .replace(/[\d.,\s]/g, "")
+      .trim();
   }
 
   formatPrice(
