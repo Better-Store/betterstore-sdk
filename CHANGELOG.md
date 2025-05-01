@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.44
+
+### Patch Changes
+
+- new product seo props added
+
 ## 0.3.43
 
 ### Patch Changes

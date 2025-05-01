@@ -51,6 +51,10 @@ export interface Product {
   stockCommited: number;
   stockUnavailable: number;
 
+  seoPageTitle?: string;
+  seoDescription?: string;
+  seoHandle?: string;
+
   status: ProductStatus;
 
   options: ProductOption[];
