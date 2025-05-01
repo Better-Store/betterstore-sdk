@@ -7,6 +7,8 @@ type ProductData = Pick<
   | "images"
   | "category"
   | "tags"
+  | "sku"
+  | "barcode"
   | "isPhysical"
   | "weightInGrams"
   | "heightInCm"

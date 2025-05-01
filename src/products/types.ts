@@ -5,9 +5,14 @@ export interface VariantOption {
 
 export interface ProductVariant {
   title: string;
+  images: string[];
+
+  trackInventory: boolean;
   sku?: string;
   barcode?: string;
-  images: string[];
+  stockAvailable: number;
+  stockCommited: number;
+  stockUnavailable: number;
 
   isPhysical: boolean;
   weightInGrams?: number;
@@ -47,6 +52,9 @@ export interface Product {
 
   priceInCents: number;
 
+  trackInventory: boolean;
+  sku?: string;
+  barcode?: string;
   stockAvailable: number;
   stockCommited: number;
   stockUnavailable: number;
