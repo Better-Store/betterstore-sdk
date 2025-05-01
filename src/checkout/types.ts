@@ -16,7 +16,9 @@ type ProductData = Pick<
 > & {
   selectedVariant: Pick<
     ProductVariant,
+    | "title"
     | "sku"
+    | "barcode"
     | "images"
     | "isPhysical"
     | "weightInGrams"

@@ -4,7 +4,9 @@ export interface VariantOption {
 }
 
 export interface ProductVariant {
-  sku: string;
+  title: string;
+  sku?: string;
+  barcode?: string;
   images: string[];
 
   isPhysical: boolean;
