@@ -49,7 +49,7 @@ class Helpers {
       TRY: "tr-TR", // Turkish Lira
     };
 
-    const locale = currencyLocales[currency] ?? undefined;
+    const locale = currencyLocales[currency.toUpperCase()] ?? undefined;
 
     const formattedPrice = new Intl.NumberFormat(locale, {
       style: "currency",
