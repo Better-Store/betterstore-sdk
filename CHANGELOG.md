@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.47
+
+### Patch Changes
+
+- currency formatter
+
 ## 0.3.46
 
 ### Patch Changes
