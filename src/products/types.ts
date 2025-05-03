@@ -85,3 +85,7 @@ export interface Collection {
   seoDescription?: string;
   seoHandle?: string;
 }
+
+export interface CollectionWithProducts extends Collection {
+  products: ProductWithoutVariants[];
+}

@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.49
+
+### Patch Changes
+
+- collection utility functions
+
 ## 0.3.48
 
 ### Patch Changes

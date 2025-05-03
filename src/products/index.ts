@@ -1,5 +1,10 @@
 import { createApiClient } from "../utils/axios";
-import { Collection, Product, ProductWithoutVariants } from "./types";
+import {
+  Collection,
+  CollectionWithProducts,
+  Product,
+  ProductWithoutVariants,
+} from "./types";
 
 class Products {
   private apiClient: ReturnType<typeof createApiClient>;
@@ -28,6 +33,26 @@ class Products {
 
   async listCollections(): Promise<Collection[]> {
     const data: Collection[] = await this.apiClient.get("/collections");
+
+    return data;
+  }
+
+  async retrieveCollectionBySeoHandle(
+    collectionSeoHandle: string
+  ): Promise<CollectionWithProducts> {
+    const data: CollectionWithProducts = await this.apiClient.get(
+      `/collections/${collectionSeoHandle}`
+    );
+
+    return data;
+  }
+
+  async retrieveCollectionById(
+    collectionId: string
+  ): Promise<CollectionWithProducts> {
+    const data: CollectionWithProducts = await this.apiClient.get(
+      `/collections/id/${collectionId}`
+    );
 
     return data;
   }
