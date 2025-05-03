@@ -63,6 +63,8 @@ export interface Product {
   seoDescription?: string;
   seoHandle?: string;
 
+  vendor?: string;
+
   status: ProductStatus;
 
   options: ProductOption[];
@@ -71,3 +73,15 @@ export interface Product {
 
 export interface ProductWithoutVariants
   extends Omit<Product, "productVariants"> {}
+
+export interface Collection {
+  id: string;
+
+  title: string;
+  description?: string;
+  images: string[];
+
+  seoPageTitle?: string;
+  seoDescription?: string;
+  seoHandle?: string;
+}

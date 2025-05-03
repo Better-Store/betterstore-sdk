@@ -1,5 +1,5 @@
 import { createApiClient } from "../utils/axios";
-import { Product, ProductWithoutVariants } from "./types";
+import { Collection, Product, ProductWithoutVariants } from "./types";
 
 class Products {
   private apiClient: ReturnType<typeof createApiClient>;
@@ -22,6 +22,12 @@ class Products {
       console.error(`Product with id ${productId} not found`);
       return null;
     }
+
+    return data;
+  }
+
+  async listCollections(): Promise<Collection[]> {
+    const data: Collection[] = await this.apiClient.get("/collections");
 
     return data;
   }
