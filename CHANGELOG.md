@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.50
+
+### Patch Changes
+
+- discounts handeling finished
+
 ## 0.3.49
 
 ### Patch Changes

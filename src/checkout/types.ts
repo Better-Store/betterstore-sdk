@@ -54,6 +54,7 @@ export interface CheckoutCreateParams {
   customerId?: string;
   lineItems: LineItemCreate[];
   currency?: Currency;
+  discountCode?: string;
 }
 
 export interface CheckoutUpdateParams {
@@ -70,29 +71,86 @@ export interface CheckoutUpdateParams {
 
 export { ShippingRate } from "./shipping.types";
 
-export interface CheckoutSession {
+type ShipmentData = {
+  provider: string;
+  name?: string;
+  service?: string;
+  pickupPointId?: string;
+  trackingId?: string;
+  trackingUrl?: string;
+};
+
+type Discount = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  clientSecret: string;
+
+  type:
+    | "AMOUNT_OFF_PRODUCTS"
+    | "BUY_X_GET_Y"
+    | "AMOUNT_OFF_ORDER"
+    | "FREE_SHIPPING";
+  method: "CODE" | "AUTOMATIC";
+  code?: string | null;
+  title?: string | null;
+
+  value: number;
+  valueType: "PERCENTAGE" | "FIXED_AMOUNT" | "FREE";
+  discountScope: "PRODUCTS" | "COLLECTIONS";
+  allowedProductIDs: string[];
+  allowedCollectionIDs: string[];
+
+  allowedCombinations: ("ORDER" | "PRODUCT" | "SHIPPING")[];
+
+  minimumRequirementsType:
+    | "NONE"
+    | "MINIMUM_ORDER_AMOUNT"
+    | "MINIMUM_PRODUCT_QUANTITY";
+  minimumRequirementsValue?: number | null;
+  requiredProductIDs: string[];
+  requiredCollectionIDs: string[];
+  minimumRequirementsScope: "PRODUCTS" | "COLLECTIONS";
+
+  maxUses?: number | null;
+  maxUsesPerCustomer?: number | null;
+  maxAllowedProductQuantity?: number | null;
+  uses: number;
+
+  startsAt: Date;
+  expiresAt?: Date | null;
+
+  status: "ACTIVE" | "EXPIRED" | "SCHEDULED";
+
+  organizationId: string;
+};
+
+export interface CheckoutSession {
+  id: string;
+  testmode: boolean;
+  customer?: {
+    id: string;
+    address?: Address;
+    email?: string;
+  };
+
   lineItems: LineItem[];
-  total?: number;
-  subtotal?: number;
-  tax?: number;
-  shipping?: number;
+
+  tax: number | null;
+  shipping: number | null;
+  discountAmount: number | null;
+  appliedDiscounts: {
+    discount: Discount;
+  }[];
   currency: string;
-  exchangeRate: number;
+  exchangeRate: number | null;
+  shipmentData: ShipmentData | null;
+
   status:
     | "IN_PROGRESS"
     | "PAYMENT_PENDING"
     | "ABANDONED"
     | "CANCELED"
     | "FAILED";
-  customer?: {
-    id: string;
-    address?: Address;
-    email?: string;
-  };
 }
 
 type RecursiveRecord = {

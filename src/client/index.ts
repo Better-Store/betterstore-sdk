@@ -48,6 +48,36 @@ class Client {
   }
 
   /**
+   * Update a checkout session
+   */
+  async applyDiscountCode(
+    clientSecret: string,
+    checkoutId: string,
+    discountCode: string
+  ): Promise<CheckoutSession> {
+    const apiClient = createApiClient(clientSecret, this.proxy);
+    const data: CheckoutSession = await apiClient.post(
+      `/checkout/${checkoutId}/discount`,
+      { code: discountCode }
+    );
+    return data;
+  }
+
+  /**
+   * Update a checkout session
+   */
+  async revalidateDiscounts(
+    clientSecret: string,
+    checkoutId: string
+  ): Promise<CheckoutSession> {
+    const apiClient = createApiClient(clientSecret, this.proxy);
+    const data: CheckoutSession = await apiClient.get(
+      `/checkout/${checkoutId}/revalidate-discounts`
+    );
+    return data;
+  }
+
+  /**
    * Get shipping rates for a checkout session
    */
   async getCheckoutShippingRates(

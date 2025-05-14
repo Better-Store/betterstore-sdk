@@ -56,6 +56,30 @@ class Checkout {
   }
 
   /**
+   * Update a checkout session
+   */
+  async applyDiscountCode(
+    checkoutId: string,
+    discountCode: string
+  ): Promise<CheckoutSession> {
+    const data: CheckoutSession = await this.apiClient.post(
+      `/checkout/${checkoutId}/discount`,
+      { code: discountCode }
+    );
+    return data;
+  }
+
+  /**
+   * Update a checkout session
+   */
+  async revalidateDiscounts(checkoutId: string): Promise<CheckoutSession> {
+    const data: CheckoutSession = await this.apiClient.get(
+      `/checkout/${checkoutId}/revalidate-discounts`
+    );
+    return data;
+  }
+
+  /**
    * Get shipping rates for a checkout session
    */
   async getShippingRates(checkoutId: string): Promise<ShippingRate[]> {
