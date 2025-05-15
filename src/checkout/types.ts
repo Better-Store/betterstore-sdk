@@ -140,6 +140,7 @@ export interface CheckoutSession {
   shipping: number | null;
   discountAmount: number | null;
   appliedDiscounts: {
+    amount: number;
     discount: Discount;
   }[];
   currency: string;
