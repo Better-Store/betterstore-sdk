@@ -63,7 +63,7 @@ class Checkout {
     discountCode: string
   ): Promise<CheckoutSession> {
     const data: CheckoutSession = await this.apiClient.post(
-      `/checkout/${checkoutId}/discount`,
+      `/checkout/${checkoutId}/discounts/apply`,
       { code: discountCode }
     );
     return data;
@@ -74,7 +74,7 @@ class Checkout {
    */
   async revalidateDiscounts(checkoutId: string): Promise<CheckoutSession> {
     const data: CheckoutSession = await this.apiClient.get(
-      `/checkout/${checkoutId}/revalidate-discounts`
+      `/checkout/${checkoutId}/discounts/revalidate`
     );
     return data;
   }

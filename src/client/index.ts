@@ -57,7 +57,7 @@ class Client {
   ): Promise<CheckoutSession> {
     const apiClient = createApiClient(clientSecret, this.proxy);
     const data: CheckoutSession = await apiClient.post(
-      `/checkout/${checkoutId}/discount`,
+      `/checkout/${checkoutId}/discounts/apply`,
       { code: discountCode }
     );
     return data;
@@ -72,7 +72,7 @@ class Client {
   ): Promise<CheckoutSession> {
     const apiClient = createApiClient(clientSecret, this.proxy);
     const data: CheckoutSession = await apiClient.get(
-      `/checkout/${checkoutId}/revalidate-discounts`
+      `/checkout/${checkoutId}/discounts/revalidate`
     );
     return data;
   }
