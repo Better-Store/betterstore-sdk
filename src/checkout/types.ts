@@ -37,7 +37,7 @@ export interface LineItem {
   quantity: number;
   variantOptions: { name: string; value: string }[];
   discountId?: string;
-  product: ProductData;
+  productData: ProductData;
   metadata?: string;
 }
 
