@@ -127,6 +127,7 @@ type Discount = {
 export interface CheckoutSession {
   id: string;
   testmode: boolean;
+  clientSecret: string;
   customer?: {
     id: string;
     address?: Address;
