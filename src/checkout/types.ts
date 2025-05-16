@@ -42,7 +42,8 @@ export interface LineItem {
   metadata?: string;
 }
 
-export interface LineItemCreate extends Omit<LineItem, "product" | "metadata"> {
+export interface LineItemCreate
+  extends Omit<LineItem, "productData" | "product" | "metadata"> {
   productId: string;
   product?: Pick<Product, "title" | "priceInCents" | "images">;
   metadata?: RecursiveRecord;
