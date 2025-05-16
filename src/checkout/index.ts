@@ -95,13 +95,18 @@ class Checkout {
   async generatePaymentSecret(checkoutId: string): Promise<{
     paymentSecret: string;
     publicKey: string;
+    checkoutSession: CheckoutSession;
   }> {
-    const data: { paymentSecret: string; publicKey: string } = await this
-      .apiClient.post(`
+    const data: {
+      paymentSecret: string;
+      publicKey: string;
+      checkoutSession: CheckoutSession;
+    } = await this.apiClient.post(`
       /checkout/payment/${checkoutId}`);
     return {
       paymentSecret: data.paymentSecret,
       publicKey: data.publicKey,
+      checkoutSession: data.checkoutSession,
     };
   }
 }
