@@ -140,6 +140,7 @@ export interface CheckoutSession {
   shipping: number | null;
   discountAmount: number | null;
   appliedDiscounts: {
+    id: string;
     amount: number;
     allowedProductIDs: string[];
     discount: Discount;
