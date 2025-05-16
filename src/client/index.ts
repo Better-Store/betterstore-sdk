@@ -94,21 +94,24 @@ class Client {
   /**
    * Generate payment secret for a checkout session
    */
-  async generateCheckoutsPaymentSecret(
+  async generateCheckoutPaymentSecret(
     clientSecret: string,
     checkoutId: string
   ): Promise<{
     paymentSecret: string;
     publicKey: string;
+    checkoutSession: CheckoutSession;
   }> {
     const apiClient = createApiClient(clientSecret, this.proxy);
     const data: {
       paymentSecret: string;
       publicKey: string;
+      checkoutSession: CheckoutSession;
     } = await apiClient.post(`/checkout/payment/${checkoutId}`);
     return {
       paymentSecret: data.paymentSecret,
       publicKey: data.publicKey,
+      checkoutSession: data.checkoutSession,
     };
   }
 
