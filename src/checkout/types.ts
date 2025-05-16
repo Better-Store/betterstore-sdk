@@ -17,6 +17,7 @@ type ProductData = Pick<
   | "lengthInCm"
   | "priceInCents"
 > & {
+  productId: string;
   selectedVariant: Pick<
     ProductVariant,
     | "title"
