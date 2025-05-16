@@ -56,7 +56,7 @@ class Checkout {
   }
 
   /**
-   * Update a checkout session
+   * Apply a discount code to a checkout session
    */
   async applyDiscountCode(
     checkoutId: string,
@@ -70,7 +70,20 @@ class Checkout {
   }
 
   /**
-   * Update a checkout session
+   * Remove a discount code from a checkout session
+   */
+  async removeDiscountCode(
+    checkoutId: string,
+    discountId: string
+  ): Promise<CheckoutSession> {
+    const data: CheckoutSession = await this.apiClient.delete(
+      `/checkout/${checkoutId}/discounts/${discountId}`
+    );
+    return data;
+  }
+
+  /**
+   * Revalidate a checkout session
    */
   async revalidateDiscounts(checkoutId: string): Promise<CheckoutSession> {
     const data: CheckoutSession = await this.apiClient.get(

@@ -48,7 +48,7 @@ class Client {
   }
 
   /**
-   * Update a checkout session
+   * Apply a discount code to a checkout session
    */
   async applyDiscountCode(
     clientSecret: string,
@@ -64,7 +64,22 @@ class Client {
   }
 
   /**
-   * Update a checkout session
+   * Remove a discount code from a checkout session
+   */
+  async removeDiscountCode(
+    clientSecret: string,
+    checkoutId: string,
+    discountId: string
+  ): Promise<CheckoutSession> {
+    const apiClient = createApiClient(clientSecret, this.proxy);
+    const data: CheckoutSession = await apiClient.delete(
+      `/checkout/${checkoutId}/discounts/${discountId}`
+    );
+    return data;
+  }
+
+  /**
+   * Revalidate a checkout session
    */
   async revalidateDiscounts(
     clientSecret: string,
