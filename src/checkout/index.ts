@@ -70,9 +70,9 @@ class Checkout {
   }
 
   /**
-   * Remove a discount code from a checkout session
+   * Remove a discount  from a checkout session
    */
-  async removeDiscountCode(
+  async removeDiscount(
     checkoutId: string,
     discountId: string
   ): Promise<CheckoutSession> {

@@ -66,7 +66,7 @@ class Client {
   /**
    * Remove a discount code from a checkout session
    */
-  async removeDiscountCode(
+  async removeDiscount(
     clientSecret: string,
     checkoutId: string,
     discountId: string
