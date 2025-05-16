@@ -141,6 +141,7 @@ export interface CheckoutSession {
   discountAmount: number | null;
   appliedDiscounts: {
     amount: number;
+    allowedProductIDs: string[];
     discount: Discount;
   }[];
   currency: string;
