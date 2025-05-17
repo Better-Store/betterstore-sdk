@@ -17,16 +17,9 @@ class Checkout {
    * Create a new checkout session
    */
   async create(params: CheckoutCreateParams): Promise<CheckoutSession> {
-    const formattedParams = {
-      ...params,
-      lineItems: params.lineItems.map((item) => ({
-        ...item,
-        metadata: JSON.stringify(item.metadata),
-      })),
-    };
     const data: CheckoutSession = await this.apiClient.post(
       "/checkout",
-      formattedParams
+      params
     );
     return data;
   }
