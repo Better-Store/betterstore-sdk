@@ -21,6 +21,9 @@ export interface ProductVariant {
   lengthInCm?: number;
 
   priceInCents: number;
+  billingType: ProductBillingType;
+  billingInterval?: string | null;
+  stripeProductId?: string | null;
 
   variantOptions: VariantOption[];
 }
@@ -30,11 +33,9 @@ export interface ProductOption {
   values: string[];
 }
 
-export enum ProductStatus {
-  DRAFT = "DRAFT",
-  ACTIVE = "ACTIVE",
-  ARCHIVED = "ARCHIVED",
-}
+export type ProductStatus = "DRAFT" | "ACTIVE" | "ARCHIVED";
+
+export type ProductBillingType = "ONE_TIME" | "SUBSCRIPTION";
 
 export interface Product {
   id: string;
@@ -51,6 +52,9 @@ export interface Product {
   lengthInCm?: number;
 
   priceInCents: number;
+  billingType: ProductBillingType;
+  billingInterval?: string | null;
+  stripeProductId?: string | null;
 
   trackInventory: boolean;
   sku?: string;

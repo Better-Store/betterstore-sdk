@@ -16,6 +16,9 @@ type ProductData = Pick<
   | "widthInCm"
   | "lengthInCm"
   | "priceInCents"
+  | "billingType"
+  | "billingInterval"
+  | "stripeProductId"
 > & {
   productId: string;
   selectedVariant: Pick<
@@ -30,6 +33,9 @@ type ProductData = Pick<
     | "widthInCm"
     | "lengthInCm"
     | "priceInCents"
+    | "billingType"
+    | "billingInterval"
+    | "stripeProductId"
     | "variantOptions"
   >;
 };
