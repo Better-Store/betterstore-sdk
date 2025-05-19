@@ -22,8 +22,8 @@ export interface ProductVariant {
 
   priceInCents: number;
   billingType: ProductBillingType;
-  billingInterval?: string | null;
-  stripeProductId?: string | null;
+  billingInterval: ProductBillingInterval;
+  billingIntervalCount: number;
 
   variantOptions: VariantOption[];
 }
@@ -35,6 +35,7 @@ export interface ProductOption {
 
 export type ProductStatus = "DRAFT" | "ACTIVE" | "ARCHIVED";
 
+export type ProductBillingInterval = "DAY" | "WEEK" | "MONTH" | "YEAR";
 export type ProductBillingType = "ONE_TIME" | "SUBSCRIPTION";
 
 export interface Product {
@@ -53,7 +54,8 @@ export interface Product {
 
   priceInCents: number;
   billingType: ProductBillingType;
-  billingInterval?: string | null;
+  billingInterval: ProductBillingInterval;
+  billingIntervalCount: number;
   stripeProductId?: string | null;
 
   trackInventory: boolean;

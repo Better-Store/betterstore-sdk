@@ -18,6 +18,7 @@ type ProductData = Pick<
   | "priceInCents"
   | "billingType"
   | "billingInterval"
+  | "billingIntervalCount"
   | "stripeProductId"
 > & {
   productId: string;
@@ -35,7 +36,7 @@ type ProductData = Pick<
     | "priceInCents"
     | "billingType"
     | "billingInterval"
-    | "stripeProductId"
+    | "billingIntervalCount"
     | "variantOptions"
   >;
 };
