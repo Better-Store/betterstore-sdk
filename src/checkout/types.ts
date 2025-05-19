@@ -19,7 +19,6 @@ type ProductData = Pick<
   | "billingType"
   | "billingInterval"
   | "billingIntervalCount"
-  | "stripeProductId"
 > & {
   productId: string;
   selectedVariant: Pick<
@@ -125,6 +124,10 @@ type Discount = {
   maxAllowedProductQuantity?: number | null;
   uses: number;
 
+  subscriptionDiscountDurationType: "ONE_TIME" | "RECURRING" | "FOREVER";
+  subscriptionDiscountDurationValue: number;
+  stripeDiscountId?: string | null;
+
   startsAt: Date;
   expiresAt?: Date | null;
 
@@ -151,7 +154,7 @@ export interface CheckoutSession {
   appliedDiscounts: {
     id: string;
     amount: number;
-    allowedProductIDs: string[];
+    allowedLineItems: { productId: string; quantity: number }[];
     discount: Discount;
   }[];
   currency: string;

@@ -56,7 +56,6 @@ export interface Product {
   billingType: ProductBillingType;
   billingInterval: ProductBillingInterval;
   billingIntervalCount: number;
-  stripeProductId?: string | null;
 
   trackInventory: boolean;
   sku?: string;
