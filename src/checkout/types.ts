@@ -43,7 +43,6 @@ type ProductData = Pick<
 export interface LineItem {
   quantity: number;
   variantOptions: { name: string; value: string }[];
-  discountId?: string;
   productData: ProductData;
   metadata?: string;
 }
@@ -62,7 +61,7 @@ export interface CheckoutCreateParams {
   customerId?: string;
   lineItems: LineItemCreate[];
   currency?: Currency;
-  discountCode?: string;
+  discountCodes?: string[];
 }
 
 export interface CheckoutUpdateParams {
