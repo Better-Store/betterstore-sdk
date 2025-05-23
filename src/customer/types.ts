@@ -36,3 +36,11 @@ export interface Customer extends CustomerCreateParams {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface CustomerSubscription {
+  cancelAtPeriodEnd: boolean;
+}
+
+export type CustomerSubscriptionUpdateParams = Partial<
+  Pick<CustomerSubscription, "cancelAtPeriodEnd">
+>;

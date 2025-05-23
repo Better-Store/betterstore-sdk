@@ -1,6 +1,8 @@
 import { createApiClient } from "../utils/axios";
 import {
   CustomerCreateParams,
+  CustomerSubscription,
+  CustomerSubscriptionUpdateParams,
   Customer as CustomerType,
   CustomerUpdateParams,
 } from "./types";
@@ -54,6 +56,21 @@ class Customer {
    */
   async delete(customerId: string): Promise<void> {
     await this.apiClient.delete(`/customer/${customerId}`);
+  }
+
+  /**
+   * Delete a customer
+   */
+  async updateCustomerSubscription(
+    stripeSubscriptionId: string,
+    params: CustomerSubscriptionUpdateParams
+  ): Promise<CustomerSubscription> {
+    const data: CustomerSubscription = await this.apiClient.put(
+      `/customer/subscription/${stripeSubscriptionId}`,
+      params
+    );
+
+    return data;
   }
 }
 
