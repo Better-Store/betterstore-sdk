@@ -91,7 +91,7 @@ export type SortOrder = "asc" | "desc";
 export type ListProductsParams = {
   sortBy?: ListProductsSortBy;
   sortOrder?: SortOrder;
-  query?: string;
+  query?: ListProductsQuery;
 };
 
 export type RetrieveProductParams =
