@@ -1,10 +1,9 @@
 import { createApiClient } from "../utils/axios";
 import {
-  Collection,
-  CollectionWithProducts,
   ListProductsParams,
   Product,
   ProductWithoutVariants,
+  RetrieveProductParams,
 } from "./types";
 
 class Products {
@@ -28,52 +27,26 @@ class Products {
     return data;
   }
 
-  async retrieve(productId: string): Promise<Product | null> {
-    const data: Product = await this.apiClient.get(`/products/${productId}`);
+  async retrieve(params: RetrieveProductParams): Promise<Product | null> {
+    if ("seoHandle" in params) {
+      const data: Product = await this.apiClient.get(
+        `/products/${params.seoHandle}`
+      );
 
-    if (!data) {
-      console.error(`Product with id ${productId} not found`);
-      return null;
+      if (!data) {
+        console.error(`Product with seoHandle ${params.seoHandle} not found`);
+        return null;
+      }
+
+      return data;
     }
 
-    return data;
-  }
-
-  async retrieveBySeoHandle(seoHandle: string): Promise<Product | null> {
-    const data: Product = await this.apiClient.get(
-      `/products/seoHandle/${seoHandle}`
-    );
+    const data: Product = await this.apiClient.get(`/products/${params.id}`);
 
     if (!data) {
-      console.error(`Product with seoHandle ${seoHandle} not found`);
+      console.error(`Product with id ${params.id} not found`);
       return null;
     }
-
-    return data;
-  }
-
-  async listCollections(): Promise<Collection[]> {
-    const data: Collection[] = await this.apiClient.get("/collections");
-
-    return data;
-  }
-
-  async retrieveCollectionBySeoHandle(
-    collectionSeoHandle: string
-  ): Promise<CollectionWithProducts> {
-    const data: CollectionWithProducts = await this.apiClient.get(
-      `/collections/${collectionSeoHandle}`
-    );
-
-    return data;
-  }
-
-  async retrieveCollection(
-    collectionId: string
-  ): Promise<CollectionWithProducts> {
-    const data: CollectionWithProducts = await this.apiClient.get(
-      `/collections/id/${collectionId}`
-    );
 
     return data;
   }

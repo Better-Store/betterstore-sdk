@@ -79,28 +79,13 @@ export interface Product {
 export interface ProductWithoutVariants
   extends Omit<Product, "productVariants"> {}
 
-export interface Collection {
-  id: string;
-
-  title: string;
-  description?: string;
-  images: string[];
-
-  seoPageTitle?: string;
-  seoDescription?: string;
-  seoHandle?: string;
-}
-
-export interface CollectionWithProducts extends Collection {
-  products: ProductWithoutVariants[];
-}
-
 export type ListProductsQuery =
   | {
       collectionId: string;
     }
   | { collectionSeoHandle: string };
-export type SortBy = "createdAt" | "updatedAt" | "bestSelling";
+
+export type SortBy = "createdAt" | "updatedAt";
 export type SortOrder = "asc" | "desc";
 
 export type ListProductsParams = {
@@ -108,3 +93,11 @@ export type ListProductsParams = {
   sortOrder?: SortOrder;
   query?: string;
 };
+
+export type RetrieveProductParams =
+  | {
+      seoHandle: string;
+    }
+  | {
+      id: string;
+    };

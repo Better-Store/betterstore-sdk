@@ -1,6 +1,8 @@
 import Checkout from "./checkout";
 import Client from "./client";
+import Collections from "./collections";
 import Customer from "./customer";
+import Discounts from "./discounts";
 import Helpers from "./helpers";
 import Products from "./products";
 
@@ -14,8 +16,10 @@ export default function createBetterStore(config: {
 
   return {
     checkout: new Checkout(config.apiKey, config.proxy),
-    products: new Products(config.apiKey, config.proxy),
     customer: new Customer(config.apiKey, config.proxy),
+    discounts: new Discounts(config.apiKey, config.proxy),
+    collections: new Collections(config.apiKey, config.proxy),
+    products: new Products(config.apiKey, config.proxy),
   };
 }
 
