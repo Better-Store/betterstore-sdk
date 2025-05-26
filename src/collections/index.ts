@@ -2,6 +2,7 @@ import { createApiClient } from "../utils/axios";
 import {
   Collection,
   CollectionWithProducts,
+  ListCollectionsParams,
   RetrieveCollectionParams,
 } from "./types";
 
@@ -12,8 +13,16 @@ class Collections {
     this.apiClient = createApiClient(apiKey, proxy);
   }
 
-  async list(): Promise<Collection[]> {
-    const data: Collection[] = await this.apiClient.get("/collections");
+  async list(params?: ListCollectionsParams): Promise<Collection[]> {
+    const queryParams = new URLSearchParams();
+
+    if (params) {
+      queryParams.set("params", JSON.stringify(params));
+    }
+
+    const data: Collection[] = await this.apiClient.get(
+      `/collections?${queryParams.toString()}`
+    );
 
     return data;
   }

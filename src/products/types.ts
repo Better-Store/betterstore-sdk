@@ -85,11 +85,11 @@ export type ListProductsQuery =
     }
   | { collectionSeoHandle: string };
 
-export type SortBy = "createdAt" | "updatedAt";
+export type ListProductsSortBy = "createdAt" | "updatedAt" | "title";
 export type SortOrder = "asc" | "desc";
 
 export type ListProductsParams = {
-  sortBy?: SortBy;
+  sortBy?: ListProductsSortBy;
   sortOrder?: SortOrder;
   query?: string;
 };
