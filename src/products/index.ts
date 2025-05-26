@@ -2,6 +2,7 @@ import { createApiClient } from "../utils/axios";
 import {
   Collection,
   CollectionWithProducts,
+  ListProductsParams,
   Product,
   ProductWithoutVariants,
 } from "./types";
@@ -13,9 +14,16 @@ class Products {
     this.apiClient = createApiClient(apiKey, proxy);
   }
 
-  async list(): Promise<ProductWithoutVariants[]> {
-    const data: ProductWithoutVariants[] =
-      await this.apiClient.get("/products");
+  async list(params?: ListProductsParams): Promise<ProductWithoutVariants[]> {
+    const queryParams = new URLSearchParams();
+
+    if (params) {
+      queryParams.set("params", JSON.stringify(params));
+    }
+
+    const data: ProductWithoutVariants[] = await this.apiClient.get(
+      `/products?${queryParams.toString()}`
+    );
 
     return data;
   }
@@ -25,6 +33,19 @@ class Products {
 
     if (!data) {
       console.error(`Product with id ${productId} not found`);
+      return null;
+    }
+
+    return data;
+  }
+
+  async retrieveBySeoHandle(seoHandle: string): Promise<Product | null> {
+    const data: Product = await this.apiClient.get(
+      `/products/seoHandle/${seoHandle}`
+    );
+
+    if (!data) {
+      console.error(`Product with seoHandle ${seoHandle} not found`);
       return null;
     }
 
@@ -47,7 +68,7 @@ class Products {
     return data;
   }
 
-  async retrieveCollectionById(
+  async retrieveCollection(
     collectionId: string
   ): Promise<CollectionWithProducts> {
     const data: CollectionWithProducts = await this.apiClient.get(

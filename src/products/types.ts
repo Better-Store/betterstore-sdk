@@ -94,3 +94,17 @@ export interface Collection {
 export interface CollectionWithProducts extends Collection {
   products: ProductWithoutVariants[];
 }
+
+export type ListProductsQuery =
+  | {
+      collectionId: string;
+    }
+  | { collectionSeoHandle: string };
+export type SortBy = "createdAt" | "updatedAt" | "bestSelling";
+export type SortOrder = "asc" | "desc";
+
+export type ListProductsParams = {
+  sortBy?: SortBy;
+  sortOrder?: SortOrder;
+  query?: string;
+};
