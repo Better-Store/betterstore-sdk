@@ -81,11 +81,15 @@ export interface ProductWithoutVariants
 
 export type ListProductsQuery =
   | {
-      collectionId: string;
+      id: string;
     }
-  | { collectionSeoHandle: string };
+  | { seoHandle: string };
 
-export type ListProductsSortBy = "createdAt" | "updatedAt" | "title";
+export type ListProductsSortBy =
+  | "createdAt"
+  | "updatedAt"
+  | "title"
+  | "stockAvailable";
 export type SortOrder = "asc" | "desc";
 
 export type ListProductsParams = {
