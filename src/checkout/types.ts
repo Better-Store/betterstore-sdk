@@ -54,7 +54,7 @@ export interface LineItemCreate
   > {
   variantOptions?: { name: string; value: string }[];
   productId: string;
-  product?: Pick<Product, "title" | "priceInCents" | "images">;
+  product?: Pick<Product, "title" | "priceInCents" | "images" | "description">;
   metadata?: RecursiveRecord;
 }
 
