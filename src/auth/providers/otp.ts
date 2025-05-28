@@ -4,6 +4,7 @@ import {
   OTPLoginResponse,
   OTPSignupParams,
   OTPSignupResponse,
+  OTPVerifyParams,
   OTPVerifyResponse,
 } from "../types";
 
@@ -32,12 +33,10 @@ export class OTP {
     return data;
   }
 
-  async verify(token: string): Promise<OTPVerifyResponse> {
+  async verify(params: OTPVerifyParams): Promise<OTPVerifyResponse> {
     const data: OTPVerifyResponse = await this.apiClient.post(
       "/auth/otp/verify",
-      {
-        token,
-      }
+      params
     );
 
     return data;

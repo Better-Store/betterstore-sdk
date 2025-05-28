@@ -35,6 +35,11 @@ export interface OTPSignupParams extends OTPLoginParams {
   lastName: string;
 }
 
+export interface OTPVerifyParams {
+  token: string;
+  otp: string;
+}
+
 export type OTPLoginResponse =
   | {
       success: true;
