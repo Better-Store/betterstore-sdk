@@ -26,13 +26,35 @@ export interface CustomerSession {
   };
 }
 
-export interface MagicLinkLoginParams {
+export interface OTPLoginParams {
   email: string;
-  callbackUrl: string;
-  customValidationUrl: string;
 }
 
-export interface MagicLinkSignupParams extends MagicLinkLoginParams {
+export interface OTPSignupParams extends OTPLoginParams {
   firstName: string;
   lastName: string;
 }
+
+export type OTPLoginResponse =
+  | {
+      success: true;
+      token: string;
+    }
+  | {
+      success: false;
+      code: string;
+      error: string;
+    };
+
+export type OTPSignupResponse = OTPLoginResponse;
+
+export type OTPVerifyResponse =
+  | {
+      success: true;
+      customerSession: CustomerSession;
+    }
+  | {
+      success: false;
+      code: string;
+      error: string;
+    };

@@ -1,14 +1,14 @@
 import { createApiClient } from "../utils/axios";
-import { MagicLink } from "./providers/magic-link";
+import { OTP } from "./providers/otp";
 import { CustomerSession } from "./types";
 
 class Auth {
   private apiClient: ReturnType<typeof createApiClient>;
-  public magicLink: MagicLink;
+  public otp: OTP;
 
   constructor(apiKey: string, proxy?: string) {
     this.apiClient = createApiClient(apiKey, proxy);
-    this.magicLink = new MagicLink(this.apiClient);
+    this.otp = new OTP(this.apiClient);
   }
 
   async retrieveSession(id: string): Promise<CustomerSession | null> {
