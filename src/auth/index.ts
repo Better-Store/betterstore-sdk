@@ -7,7 +7,7 @@ class Auth {
   public otp: OTP;
 
   constructor(apiKey: string, proxy?: string) {
-    this.apiClient = createApiClient(apiKey, proxy);
+    this.apiClient = createApiClient(apiKey, proxy, true);
     this.otp = new OTP(this.apiClient);
   }
 

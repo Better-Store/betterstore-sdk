@@ -10,7 +10,11 @@ interface ApiError {
   details?: unknown;
 }
 
-export const createApiClient = (apiKey: string, proxy?: string) => {
+export const createApiClient = (
+  apiKey: string,
+  proxy?: string,
+  returnError?: boolean
+) => {
   const client = axios.create({
     baseURL: proxy ?? API_BASE_URL,
     headers: {
@@ -25,7 +29,7 @@ export const createApiClient = (apiKey: string, proxy?: string) => {
   // Add response interceptor for error handling
   client.interceptors.response.use(
     (response: AxiosResponse) => response.data,
-    (error: AxiosError): never => {
+    (error: AxiosError): ApiError | never => {
       const apiError: ApiError = {
         status: 500,
         message: "An unexpected error occurred",
@@ -48,6 +52,10 @@ export const createApiClient = (apiKey: string, proxy?: string) => {
         apiError.message = "Request configuration error";
         apiError.code = "REQUEST_SETUP_ERROR";
         apiError.details = error;
+      }
+
+      if (returnError) {
+        return apiError;
       }
 
       throw apiError;
