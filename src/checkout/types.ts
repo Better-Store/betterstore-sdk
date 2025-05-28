@@ -1,4 +1,10 @@
-import { Address, Discount, Product, ProductVariant } from "../types";
+import {
+  Address,
+  Discount,
+  Product,
+  ProductVariant,
+  ProductWithoutVariants,
+} from "../types";
 
 type ProductData = Pick<
   Product,
@@ -54,10 +60,7 @@ export interface LineItemCreate
   > {
   variantOptions?: { name: string; value: string }[];
   productId: string;
-  product?: Pick<
-    Product,
-    "id" | "title" | "description" | "images" | "priceInCents"
-  >;
+  product?: ProductWithoutVariants;
   metadata?: RecursiveRecord;
 }
 
