@@ -1,3 +1,4 @@
+import Auth from "./auth";
 import Checkout from "./checkout";
 import Client from "./client";
 import Collections from "./collections";
@@ -20,6 +21,7 @@ export default function createBetterStore(config: {
     discounts: new Discounts(config.apiKey, config.proxy),
     collections: new Collections(config.apiKey, config.proxy),
     products: new Products(config.apiKey, config.proxy),
+    auth: new Auth(config.apiKey, config.proxy),
   };
 }
 
