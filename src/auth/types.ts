@@ -36,7 +36,7 @@ export interface OTPSignupParams extends OTPLoginParams {
 }
 
 export interface OTPVerifyParams {
-  token: string;
+  email: string;
   otp: string;
 }
 
