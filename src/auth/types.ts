@@ -42,11 +42,20 @@ export type OTPLoginResponse =
     }
   | {
       success: false;
-      code: string;
+      code: "BAD_REQUEST";
       error: string;
     };
 
-export type OTPSignupResponse = OTPLoginResponse;
+export type OTPSignupResponse =
+  | {
+      success: true;
+      token: string;
+    }
+  | {
+      success: false;
+      code: "BAD_REQUEST" | "CUSTOMER_ALREADY_EXISTS";
+      error: string;
+    };
 
 export type OTPVerifyResponse =
   | {
@@ -55,6 +64,6 @@ export type OTPVerifyResponse =
     }
   | {
       success: false;
-      code: string;
+      code: "BAD_REQUEST";
       error: string;
     };
