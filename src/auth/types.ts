@@ -4,6 +4,7 @@ export interface CustomerSession {
   customerId: string;
   expiresAt: Date;
   testmode: boolean;
+  token: string;
 
   customer: {
     createdAt: Date;
