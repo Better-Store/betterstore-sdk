@@ -51,6 +51,14 @@ export type ListDiscountsQuery = {
   valueType?: Discount["valueType"];
   method?: Discount["method"];
   status?: Discount["status"];
+  minimumRequirementsType?: Discount["minimumRequirementsType"];
+  minimumRequirementsScope?: Discount["minimumRequirementsScope"];
+  discountScope?: Discount["discountScope"];
+  allowedCombinations?: Discount["allowedCombinations"];
+  allowedProductIDs?: Discount["allowedProductIDs"];
+  allowedCollectionIDs?: Discount["allowedCollectionIDs"];
+  requiredProductIDs?: Discount["requiredProductIDs"];
+  requiredCollectionIDs?: Discount["requiredCollectionIDs"];
 };
 
 export type ListDiscountsSortBy = "createdAt" | "updatedAt";
