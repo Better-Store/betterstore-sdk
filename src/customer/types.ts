@@ -12,8 +12,8 @@ export type Address = {
 };
 
 export interface CustomerCreateParams {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   phone?: string;
   address?: Address;
@@ -21,14 +21,9 @@ export interface CustomerCreateParams {
   isSubscribedSMS?: boolean;
 }
 
-export interface CustomerUpdateParams {
-  firstName?: string;
-  lastName?: string;
+export interface CustomerUpdateParams
+  extends Omit<CustomerCreateParams, "email"> {
   email?: string;
-  phone?: string;
-  address?: Address;
-  isSubscribedEmail?: boolean;
-  isSubscribedSMS?: boolean;
 }
 
 export interface Customer extends CustomerCreateParams {

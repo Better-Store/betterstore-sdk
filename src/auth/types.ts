@@ -1,4 +1,4 @@
-import { Address, CustomerUpdateParams } from "../types";
+import { Address, CustomerCreateParams } from "../types";
 
 export interface CustomerSession {
   customerId: string;
@@ -31,9 +31,7 @@ export interface OTPLoginParams {
   email: string;
 }
 
-export interface OTPSignupParams extends Omit<CustomerUpdateParams, "email"> {
-  email: string;
-}
+export interface OTPSignupParams extends CustomerCreateParams {}
 
 export interface OTPVerifyParams {
   email: string;
