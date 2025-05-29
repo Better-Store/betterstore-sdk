@@ -1,4 +1,4 @@
-import { Address } from "../types";
+import { Address, CustomerUpdateParams } from "../types";
 
 export interface CustomerSession {
   customerId: string;
@@ -31,9 +31,8 @@ export interface OTPLoginParams {
   email: string;
 }
 
-export interface OTPSignupParams extends OTPLoginParams {
-  firstName: string;
-  lastName: string;
+export interface OTPSignupParams extends Omit<CustomerUpdateParams, "email"> {
+  email: string;
 }
 
 export interface OTPVerifyParams {
@@ -48,7 +47,7 @@ export type OTPLoginResponse =
     }
   | {
       success: false;
-      code: "BAD_REQUEST";
+      code: "BAD_REQUEST" | "CUSTOMER_NOT_FOUND";
       error: string;
     };
 
