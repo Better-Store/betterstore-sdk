@@ -1,4 +1,4 @@
-import { ProductWithoutVariants, SortOrder } from "../products/types";
+import { ProductWithoutVariants } from "../products/types";
 
 export interface Collection {
   id: string;
@@ -21,8 +21,8 @@ export type ListCollectionsSortBy = "createdAt" | "updatedAt" | "title";
 
 export type ListCollectionsParams = {
   sortBy?: ListCollectionsSortBy;
-  sortOrder?: SortOrder;
-  query?: string;
+  sortOrder?: "asc" | "desc";
+  query?: ListCollectionsQuery;
 };
 
 export type RetrieveCollectionParams =
