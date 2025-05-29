@@ -1,5 +1,5 @@
 import { createApiClient } from "../utils/axios";
-import { Discount, RetrieveDiscountParams } from "./types";
+import { Discount, ListDiscountsParams, RetrieveDiscountParams } from "./types";
 
 class Discounts {
   private apiClient: ReturnType<typeof createApiClient>;
@@ -8,8 +8,16 @@ class Discounts {
     this.apiClient = createApiClient(apiKey, proxy);
   }
 
-  async list(): Promise<Discount[]> {
-    const data: Discount[] = await this.apiClient.get("/discounts");
+  async list(params?: ListDiscountsParams): Promise<Discount[]> {
+    const queryParams = new URLSearchParams();
+
+    if (params) {
+      queryParams.set("params", JSON.stringify(params));
+    }
+
+    const data: Discount[] = await this.apiClient.get(
+      `/discounts?${queryParams.toString()}`
+    );
 
     return data;
   }

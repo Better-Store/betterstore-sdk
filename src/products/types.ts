@@ -90,11 +90,10 @@ export type ListProductsSortBy =
   | "updatedAt"
   | "title"
   | "stockAvailable";
-export type SortOrder = "asc" | "desc";
 
 export type ListProductsParams = {
   sortBy?: ListProductsSortBy;
-  sortOrder?: SortOrder;
+  sortOrder?: "asc" | "desc";
   query?: ListProductsQuery;
 };
 

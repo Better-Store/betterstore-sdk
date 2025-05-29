@@ -46,6 +46,21 @@ export interface Discount {
   organizationId: string;
 }
 
+export type ListDiscountsQuery = {
+  type?: Discount["type"];
+  valueType?: Discount["valueType"];
+  method?: Discount["method"];
+  status?: Discount["status"];
+};
+
+export type ListDiscountsSortBy = "createdAt" | "updatedAt";
+
+export type ListDiscountsParams = {
+  sortBy?: ListDiscountsSortBy;
+  sortOrder?: "asc" | "desc";
+  query?: ListDiscountsQuery;
+};
+
 export type RetrieveDiscountParams =
   | {
       id: string;
