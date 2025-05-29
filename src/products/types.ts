@@ -81,9 +81,9 @@ export interface ProductWithoutVariants
 
 export type ListProductsQuery =
   | {
-      id: string;
+      collectionId: string;
     }
-  | { seoHandle: string };
+  | { collectionSeoHandle: string };
 
 export type ListProductsSortBy =
   | "createdAt"
