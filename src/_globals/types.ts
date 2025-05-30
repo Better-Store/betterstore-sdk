@@ -6,25 +6,26 @@ export type GetListParams<A, B> = {
 };
 
 export type EnumQueryType<T> = {
+  equals?: T;
   in?: T[];
-  notIn?: T[];
   not?: T;
+  notIn?: T[];
 };
 
 export type StringArrayQueryType<T = string> = {
-  has?: T[];
+  equals?: T[];
+  has?: T;
   hasEvery?: T[];
   hasSome?: T[];
-
-  equals?: T[];
 
   isEmpty?: boolean;
 };
 
 export type DateQueryType = {
+  equals?: Date;
   in?: Date[];
-  notIn?: Date[];
   not?: Date;
+  notIn?: Date[];
 
   gt?: Date;
   gte?: Date;
