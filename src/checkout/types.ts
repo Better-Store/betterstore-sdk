@@ -43,6 +43,7 @@ type ProductData = Pick<
     | "billingInterval"
     | "billingIntervalCount"
     | "variantOptions"
+    | "metadata"
   >;
 };
 

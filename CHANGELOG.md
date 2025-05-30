@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.96
+
+### Patch Changes
+
+- metadata added to product and variants
+
 ## 0.3.95
 
 ### Patch Changes
