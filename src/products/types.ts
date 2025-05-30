@@ -1,3 +1,5 @@
+import { GetListParams, StringArrayQueryType } from "../_globals/types";
+
 export interface VariantOption {
   name: string;
   value: string;
@@ -79,23 +81,27 @@ export interface Product {
 export interface ProductWithoutVariants
   extends Omit<Product, "productVariants"> {}
 
-export type ListProductsQuery =
-  | {
-      collectionId: string;
-    }
-  | { collectionSeoHandle: string };
+export type ListProductsQuery = {
+  // Collection
+  collectionId?: StringArrayQueryType;
+  collectionSeoHandle?: StringArrayQueryType;
+
+  // String arrays
+  tags?: StringArrayQueryType;
+};
 
 export type ListProductsSortBy =
   | "createdAt"
   | "updatedAt"
   | "title"
-  | "stockAvailable";
+  | "stockAvailable"
+  | "stockCommited"
+  | "priceInCents";
 
-export type ListProductsParams = {
-  sortBy?: ListProductsSortBy;
-  sortOrder?: "asc" | "desc";
-  query?: ListProductsQuery;
-};
+export type ListProductsParams = GetListParams<
+  ListProductsSortBy,
+  ListProductsQuery
+>;
 
 export type RetrieveProductParams =
   | {

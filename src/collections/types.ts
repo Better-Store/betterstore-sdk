@@ -1,3 +1,4 @@
+import { GetListParams } from "../_globals/types";
 import { ProductWithoutVariants } from "../products/types";
 
 export interface Collection {
@@ -19,11 +20,10 @@ export interface CollectionWithProducts extends Collection {
 export type ListCollectionsQuery = undefined;
 export type ListCollectionsSortBy = "createdAt" | "updatedAt" | "title";
 
-export type ListCollectionsParams = {
-  sortBy?: ListCollectionsSortBy;
-  sortOrder?: "asc" | "desc";
-  query?: ListCollectionsQuery;
-};
+export type ListCollectionsParams = GetListParams<
+  ListCollectionsSortBy,
+  ListCollectionsQuery
+>;
 
 export type RetrieveCollectionParams =
   | {

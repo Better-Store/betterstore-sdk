@@ -1,3 +1,11 @@
+import {
+  DateQueryType,
+  EnumQueryType,
+  GetListParams,
+  OptionalDateQueryType,
+  StringArrayQueryType,
+} from "../_globals/types";
+
 export interface Discount {
   id: string;
   createdAt: Date;
@@ -47,27 +55,46 @@ export interface Discount {
 }
 
 export type ListDiscountsQuery = {
-  type?: Discount["type"];
-  valueType?: Discount["valueType"];
-  method?: Discount["method"];
-  status?: Discount["status"];
-  minimumRequirementsType?: Discount["minimumRequirementsType"];
-  minimumRequirementsScope?: Discount["minimumRequirementsScope"];
-  discountScope?: Discount["discountScope"];
-  allowedCombinations?: Discount["allowedCombinations"];
-  allowedProductIDs?: Discount["allowedProductIDs"];
-  allowedCollectionIDs?: Discount["allowedCollectionIDs"];
-  requiredProductIDs?: Discount["requiredProductIDs"];
-  requiredCollectionIDs?: Discount["requiredCollectionIDs"];
+  // Enums
+  type?: EnumQueryType<Discount["type"]>;
+  valueType?: EnumQueryType<Discount["valueType"]>;
+  method?: EnumQueryType<Discount["method"]>;
+  status?: EnumQueryType<Discount["status"]>;
+  minimumRequirementsType?: EnumQueryType<Discount["minimumRequirementsType"]>;
+  minimumRequirementsScope?: EnumQueryType<
+    Discount["minimumRequirementsScope"]
+  >;
+  discountScope?: EnumQueryType<Discount["discountScope"]>;
+  subscriptionDiscountDurationType?: EnumQueryType<
+    Discount["subscriptionDiscountDurationType"]
+  >;
+
+  // String arrays
+  allowedCombinations?: StringArrayQueryType<Discount["allowedCombinations"]>;
+  allowedProductIDs?: StringArrayQueryType<Discount["allowedProductIDs"]>;
+  allowedCollectionIDs?: StringArrayQueryType<Discount["allowedCollectionIDs"]>;
+  requiredProductIDs?: StringArrayQueryType<Discount["requiredProductIDs"]>;
+  requiredCollectionIDs?: StringArrayQueryType<
+    Discount["requiredCollectionIDs"]
+  >;
+
+  // Dates
+  startsAt?: DateQueryType;
+  expiresAt?: OptionalDateQueryType;
+  createdAt?: DateQueryType;
+  updatedAt?: DateQueryType;
 };
 
-export type ListDiscountsSortBy = "createdAt" | "updatedAt";
+export type ListDiscountsSortBy =
+  | "createdAt"
+  | "updatedAt"
+  | "expiresAt"
+  | "startsAt";
 
-export type ListDiscountsParams = {
-  sortBy?: ListDiscountsSortBy;
-  sortOrder?: "asc" | "desc";
-  query?: ListDiscountsQuery;
-};
+export type ListDiscountsParams = GetListParams<
+  ListDiscountsSortBy,
+  ListDiscountsQuery
+>;
 
 export type RetrieveDiscountParams =
   | {
