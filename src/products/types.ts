@@ -31,7 +31,7 @@ export interface ProductVariant {
   billingInterval: ProductBillingInterval;
   billingIntervalCount: number;
 
-  metadata?: string;
+  metadata?: Record<string, any>;
 
   variantOptions: VariantOption[];
 }
@@ -80,7 +80,7 @@ export interface Product {
   seoHandle?: string;
 
   vendor?: string;
-  metadata?: string;
+  metadata?: Record<string, any>;
 
   status: ProductStatus;
 
