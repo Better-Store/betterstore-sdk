@@ -1,4 +1,8 @@
-import { GetListParams, StringArrayQueryType } from "../_globals/types";
+import {
+  DateQueryType,
+  GetListParams,
+  StringArrayQueryType,
+} from "../_globals/types";
 
 export interface VariantOption {
   name: string;
@@ -42,6 +46,9 @@ export type ProductBillingType = "ONE_TIME" | "SUBSCRIPTION";
 
 export interface Product {
   id: string;
+  createdAt: Date;
+  updatedAt: Date;
+
   title: string;
   description?: string;
   images: string[];
@@ -88,6 +95,10 @@ export type ListProductsQuery = {
 
   // String arrays
   tags?: StringArrayQueryType;
+
+  // Dates
+  createdAt?: DateQueryType;
+  updatedAt?: DateQueryType;
 };
 
 export type ListProductsSortBy =
