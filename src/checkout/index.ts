@@ -1,4 +1,4 @@
-import { createApiClient } from "../utils/axios";
+import { ApiError, createApiClient } from "../utils/axios";
 import {
   CheckoutCreateParams,
   CheckoutSession,
@@ -17,20 +17,31 @@ class Checkout {
    * Create a new checkout session
    */
   async create(params: CheckoutCreateParams): Promise<CheckoutSession> {
-    const data: CheckoutSession = await this.apiClient.post(
+    const data: CheckoutSession | ApiError = await this.apiClient.post(
       "/checkout",
       params
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      throw new Error("Failed to create checkout session");
+    }
+
     return data;
   }
 
   /**
    * Retrieve a checkout session by ID
    */
-  async retrieve(checkoutId: string): Promise<CheckoutSession> {
-    const data: CheckoutSession = await this.apiClient.get(
+  async retrieve(checkoutId: string): Promise<CheckoutSession | null> {
+    const data: CheckoutSession | ApiError = await this.apiClient.get(
       `/checkout/${checkoutId}`
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      console.error(`Checkout session with id ${checkoutId} not found`);
+      return null;
+    }
+
     return data;
   }
 
@@ -40,11 +51,17 @@ class Checkout {
   async update(
     checkoutId: string,
     params: CheckoutUpdateParams
-  ): Promise<CheckoutSession> {
-    const data: CheckoutSession = await this.apiClient.put(
+  ): Promise<CheckoutSession | null> {
+    const data: CheckoutSession | ApiError = await this.apiClient.put(
       `/checkout/${checkoutId}`,
       params
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      console.error(`Checkout session with id ${checkoutId} not found`);
+      return null;
+    }
+
     return data;
   }
 
@@ -55,10 +72,15 @@ class Checkout {
     checkoutId: string,
     discountCode: string
   ): Promise<CheckoutSession> {
-    const data: CheckoutSession = await this.apiClient.post(
+    const data: CheckoutSession | ApiError = await this.apiClient.post(
       `/checkout/${checkoutId}/discounts/apply`,
       { code: discountCode }
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      throw new Error("Failed to apply discount code");
+    }
+
     return data;
   }
 
@@ -68,20 +90,34 @@ class Checkout {
   async removeDiscount(
     checkoutId: string,
     discountId: string
-  ): Promise<CheckoutSession> {
-    const data: CheckoutSession = await this.apiClient.delete(
+  ): Promise<CheckoutSession | null> {
+    const data: CheckoutSession | ApiError = await this.apiClient.delete(
       `/checkout/${checkoutId}/discounts/${discountId}`
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      console.error(`Checkout session with id ${checkoutId} not found`);
+      return null;
+    }
+
     return data;
   }
 
   /**
    * Revalidate a checkout session
    */
-  async revalidateDiscounts(checkoutId: string): Promise<CheckoutSession> {
-    const data: CheckoutSession = await this.apiClient.get(
+  async revalidateDiscounts(
+    checkoutId: string
+  ): Promise<CheckoutSession | null> {
+    const data: CheckoutSession | ApiError = await this.apiClient.get(
       `/checkout/${checkoutId}/discounts/revalidate`
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      console.error(`Checkout session with id ${checkoutId} not found`);
+      return null;
+    }
+
     return data;
   }
 
@@ -89,9 +125,14 @@ class Checkout {
    * Get shipping rates for a checkout session
    */
   async getShippingRates(checkoutId: string): Promise<ShippingRate[]> {
-    const data: ShippingRate[] = await this.apiClient.get(
+    const data: ShippingRate[] | ApiError = await this.apiClient.get(
       `/checkout/shipping/${checkoutId}`
     );
+
+    if (("isError" in data && data.isError) || !data || !Array.isArray(data)) {
+      return [];
+    }
+
     return data;
   }
 
@@ -103,12 +144,23 @@ class Checkout {
     publicKey: string;
     checkoutSession: CheckoutSession;
   }> {
-    const data: {
-      paymentSecret: string;
-      publicKey: string;
-      checkoutSession: CheckoutSession;
-    } = await this.apiClient.post(`
+    const data:
+      | {
+          paymentSecret: string;
+          publicKey: string;
+          checkoutSession: CheckoutSession;
+        }
+      | ApiError = await this.apiClient.post(`
       /checkout/payment/${checkoutId}`);
+
+    if (
+      ("isError" in data && data.isError) ||
+      !data ||
+      !("paymentSecret" in data)
+    ) {
+      throw new Error("Failed to generate payment secret");
+    }
+
     return {
       paymentSecret: data.paymentSecret,
       publicKey: data.publicKey,

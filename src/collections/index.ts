@@ -1,4 +1,4 @@
-import { createApiClient } from "../utils/axios";
+import { ApiError, createApiClient } from "../utils/axios";
 import {
   Collection,
   CollectionWithProducts,
@@ -20,9 +20,13 @@ class Collections {
       queryParams.set("params", JSON.stringify(params));
     }
 
-    const data: Collection[] = await this.apiClient.get(
+    const data: Collection[] | ApiError = await this.apiClient.get(
       `/collections?${queryParams.toString()}`
     );
+
+    if (!data || !Array.isArray(data) || ("isError" in data && data.isError)) {
+      return [];
+    }
 
     return data;
   }
@@ -31,11 +35,11 @@ class Collections {
     params: RetrieveCollectionParams
   ): Promise<CollectionWithProducts | null> {
     if ("seoHandle" in params) {
-      const data: CollectionWithProducts = await this.apiClient.get(
+      const data: CollectionWithProducts | ApiError = await this.apiClient.get(
         `/collections/${params.seoHandle}`
       );
 
-      if (!data) {
+      if (("isError" in data && data.isError) || !data || !("id" in data)) {
         console.error(
           `Collection with seoHandle ${params.seoHandle} not found`
         );
@@ -45,11 +49,11 @@ class Collections {
       return data;
     }
 
-    const data: CollectionWithProducts = await this.apiClient.get(
+    const data: CollectionWithProducts | ApiError = await this.apiClient.get(
       `/collections/id/${params.id}`
     );
 
-    if (!data) {
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
       console.error(`Collection with id ${params.id} not found`);
       return null;
     }

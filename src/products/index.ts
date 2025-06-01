@@ -1,4 +1,4 @@
-import { createApiClient } from "../utils/axios";
+import { ApiError, createApiClient } from "../utils/axios";
 import {
   ListProductsParams,
   Product,
@@ -20,20 +20,24 @@ class Products {
       queryParams.set("params", JSON.stringify(params));
     }
 
-    const data: ProductWithoutVariants[] = await this.apiClient.get(
+    const data: ProductWithoutVariants[] | ApiError = await this.apiClient.get(
       `/products?${queryParams.toString()}`
     );
+
+    if (!data || !Array.isArray(data) || ("isError" in data && data.isError)) {
+      return [];
+    }
 
     return data;
   }
 
   async retrieve(params: RetrieveProductParams): Promise<Product | null> {
-    if ("seoHandle" in params) {
-      const data: Product = await this.apiClient.get(
+    if ("seoHandle" in params && typeof params?.seoHandle === "string") {
+      const data: Product | ApiError = await this.apiClient.get(
         `/products/${params.seoHandle}`
       );
 
-      if (!data) {
+      if (("isError" in data && data.isError) || !data || !("id" in data)) {
         console.error(`Product with seoHandle ${params.seoHandle} not found`);
         return null;
       }
@@ -41,14 +45,20 @@ class Products {
       return data;
     }
 
-    const data: Product = await this.apiClient.get(`/products/${params.id}`);
+    if ("id" in params && typeof params?.id === "string") {
+      const data: Product | ApiError = await this.apiClient.get(
+        `/products/${params.id}`
+      );
 
-    if (!data) {
-      console.error(`Product with id ${params.id} not found`);
-      return null;
+      if (("isError" in data && data.isError) || !data || !("id" in data)) {
+        console.error(`Product with id ${params.id} not found`);
+        return null;
+      }
+
+      return data;
     }
 
-    return data;
+    return null;
   }
 }
 

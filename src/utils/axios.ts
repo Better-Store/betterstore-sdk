@@ -3,18 +3,15 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 const API_BASE_URL = "https://api.betterstore.io/v1";
 
 // Define consistent error interface
-interface ApiError {
+export interface ApiError {
+  isError: true;
   status: number;
   message: string;
   code?: string;
   details?: unknown;
 }
 
-export const createApiClient = (
-  apiKey: string,
-  proxy?: string,
-  returnError?: boolean
-) => {
+export const createApiClient = (apiKey: string, proxy?: string) => {
   const client = axios.create({
     baseURL: proxy ?? API_BASE_URL,
     headers: {
@@ -31,6 +28,7 @@ export const createApiClient = (
     (response: AxiosResponse) => response.data,
     (error: AxiosError): ApiError | never => {
       const apiError: ApiError = {
+        isError: true,
         status: 500,
         message: "An unexpected error occurred",
       };
@@ -54,11 +52,16 @@ export const createApiClient = (
         apiError.details = error;
       }
 
-      if (returnError) {
-        return apiError;
+      console.error(apiError);
+
+      if (
+        apiError.code === "REQUEST_SETUP_ERROR" ||
+        apiError.code === "SERVICE_UNAVAILABLE"
+      ) {
+        throw apiError;
       }
 
-      throw apiError;
+      return apiError;
     }
   );
 

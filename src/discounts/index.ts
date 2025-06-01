@@ -1,4 +1,4 @@
-import { createApiClient } from "../utils/axios";
+import { ApiError, createApiClient } from "../utils/axios";
 import { Discount, ListDiscountsParams, RetrieveDiscountParams } from "./types";
 
 class Discounts {
@@ -15,20 +15,24 @@ class Discounts {
       queryParams.set("params", JSON.stringify(params));
     }
 
-    const data: Discount[] = await this.apiClient.get(
+    const data: Discount[] | ApiError = await this.apiClient.get(
       `/discounts?${queryParams.toString()}`
     );
+
+    if (!data || !Array.isArray(data) || ("isError" in data && data.isError)) {
+      return [];
+    }
 
     return data;
   }
 
   async retrieve(params: RetrieveDiscountParams): Promise<Discount | null> {
     if ("code" in params) {
-      const data: Discount = await this.apiClient.get(
+      const data: Discount | ApiError = await this.apiClient.get(
         `/discounts/code/${params.code}`
       );
 
-      if (!data) {
+      if (("isError" in data && data.isError) || !data || !("id" in data)) {
         console.error(`Discount with code ${params.code} not found`);
         return null;
       }
@@ -36,11 +40,11 @@ class Discounts {
       return data;
     }
 
-    const data: Discount = await this.apiClient.get(
+    const data: Discount | ApiError = await this.apiClient.get(
       `/discounts/id/${params.id}`
     );
 
-    if (!data) {
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
       console.error(`Discount with id ${params.id} not found`);
       return null;
     }

@@ -8,7 +8,7 @@ import {
   Customer as CustomerType,
   CustomerUpdateParams,
 } from "../customer/types";
-import { createApiClient } from "../utils/axios";
+import { ApiError, createApiClient } from "../utils/axios";
 
 class Client {
   public proxy?: string;
@@ -23,11 +23,17 @@ class Client {
   async retrieveCheckout(
     clientSecret: string,
     checkoutId: string
-  ): Promise<CheckoutSession> {
+  ): Promise<CheckoutSession | null> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: CheckoutSession = await apiClient.get(
+    const data: CheckoutSession | ApiError = await apiClient.get(
       `/checkout/${checkoutId}`
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      console.error(`Checkout session with id ${checkoutId} not found`);
+      return null;
+    }
+
     return data;
   }
 
@@ -38,12 +44,18 @@ class Client {
     clientSecret: string,
     checkoutId: string,
     params: CheckoutUpdateParams
-  ): Promise<CheckoutSession> {
+  ): Promise<CheckoutSession | null> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: CheckoutSession = await apiClient.put(
+    const data: CheckoutSession | ApiError = await apiClient.put(
       `/checkout/${checkoutId}`,
       params
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      console.error(`Checkout session with id ${checkoutId} not found`);
+      return null;
+    }
+
     return data;
   }
 
@@ -60,6 +72,11 @@ class Client {
       `/checkout/${checkoutId}/discounts/apply`,
       { code: discountCode }
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      throw new Error("Failed to apply discount code");
+    }
+
     return data;
   }
 
@@ -75,6 +92,11 @@ class Client {
     const data: CheckoutSession = await apiClient.delete(
       `/checkout/${checkoutId}/discounts/${discountId}`
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      throw new Error("Failed to remove discount code");
+    }
+
     return data;
   }
 
@@ -84,11 +106,17 @@ class Client {
   async revalidateDiscounts(
     clientSecret: string,
     checkoutId: string
-  ): Promise<CheckoutSession> {
+  ): Promise<CheckoutSession | null> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: CheckoutSession = await apiClient.get(
+    const data: CheckoutSession | ApiError = await apiClient.get(
       `/checkout/${checkoutId}/discounts/revalidate`
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      console.error(`Checkout session with id ${checkoutId} not found`);
+      return null;
+    }
+
     return data;
   }
 
@@ -100,9 +128,14 @@ class Client {
     checkoutId: string
   ): Promise<ShippingRate[]> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: ShippingRate[] = await apiClient.get(
+    const data: ShippingRate[] | ApiError = await apiClient.get(
       `/checkout/shipping/${checkoutId}`
     );
+
+    if (("isError" in data && data.isError) || !data || !Array.isArray(data)) {
+      return [];
+    }
+
     return data;
   }
 
@@ -118,11 +151,22 @@ class Client {
     checkoutSession: CheckoutSession;
   }> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: {
-      paymentSecret: string;
-      publicKey: string;
-      checkoutSession: CheckoutSession;
-    } = await apiClient.post(`/checkout/payment/${checkoutId}`);
+    const data:
+      | {
+          paymentSecret: string;
+          publicKey: string;
+          checkoutSession: CheckoutSession;
+        }
+      | ApiError = await apiClient.post(`/checkout/payment/${checkoutId}`);
+
+    if (
+      ("isError" in data && data.isError) ||
+      !data ||
+      !("paymentSecret" in data)
+    ) {
+      throw new Error("Failed to generate payment secret");
+    }
+
     return {
       paymentSecret: data.paymentSecret,
       publicKey: data.publicKey,
@@ -138,7 +182,15 @@ class Client {
     params: CustomerCreateParams
   ): Promise<CustomerType> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: CustomerType = await apiClient.post("/customer", params);
+    const data: CustomerType | ApiError = await apiClient.post(
+      "/customer",
+      params
+    );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      throw new Error("Failed to create customer");
+    }
+
     return data;
   }
 
@@ -148,12 +200,15 @@ class Client {
   async retrieveCustomer(
     clientSecret: string,
     idOrEmail: string
-  ): Promise<CustomerType> {
+  ): Promise<CustomerType | null> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: CustomerType = await apiClient.get(`/customer/${idOrEmail}`);
+    const data: CustomerType | ApiError = await apiClient.get(
+      `/customer/${idOrEmail}`
+    );
 
-    if (!data) {
-      throw new Error("Customer not found");
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      console.error(`Customer with id or email ${idOrEmail} not found`);
+      return null;
     }
 
     return data;
@@ -166,12 +221,18 @@ class Client {
     clientSecret: string,
     customerId: string,
     params: CustomerUpdateParams
-  ): Promise<CustomerType> {
+  ): Promise<CustomerType | null> {
     const apiClient = createApiClient(clientSecret, this.proxy);
-    const data: CustomerType = await apiClient.put(
+    const data: CustomerType | ApiError = await apiClient.put(
       `/customer/${customerId}`,
       params
     );
+
+    if (("isError" in data && data.isError) || !data || !("id" in data)) {
+      console.error(`Customer with id ${customerId} not found`);
+      return null;
+    }
+
     return data;
   }
 }
