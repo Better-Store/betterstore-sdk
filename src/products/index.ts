@@ -47,7 +47,7 @@ class Products {
 
     if ("id" in params && typeof params?.id === "string") {
       const data: Product | ApiError = await this.apiClient.get(
-        `/products/${params.id}`
+        `/products/id/${params.id}`
       );
 
       if (("isError" in data && data.isError) || !data || !("id" in data)) {
