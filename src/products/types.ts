@@ -93,8 +93,8 @@ export interface ProductWithoutVariants
 
 export type ListProductsQuery = {
   // Collection
-  collectionId?: StringArrayQueryType;
-  collectionSeoHandle?: StringArrayQueryType;
+  collectionIDs?: StringArrayQueryType;
+  collectionsSeoHandles?: StringArrayQueryType;
 
   // String arrays
   tags?: StringArrayQueryType;
