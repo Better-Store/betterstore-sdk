@@ -1,4 +1,5 @@
 import {
+  ArrayModelQueryType,
   DateQueryType,
   GetListParams,
   StringArrayQueryType,
@@ -94,7 +95,9 @@ export interface ProductWithoutVariants
 export type ListProductsQuery = {
   // Collection
   collectionIDs?: StringArrayQueryType;
-  collectionsSeoHandles?: StringArrayQueryType;
+  collections?: ArrayModelQueryType<{
+    seoHandle?: StringArrayQueryType;
+  }>;
 
   // String arrays
   tags?: StringArrayQueryType;

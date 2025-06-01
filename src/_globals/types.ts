@@ -36,3 +36,9 @@ export type DateQueryType = {
 export type OptionalDateQueryType = DateQueryType & {
   isSet: boolean;
 };
+
+export type ArrayModelQueryType<T> = {
+  some?: T;
+  every?: T;
+  none?: T;
+};
