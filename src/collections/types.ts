@@ -7,6 +7,7 @@ export interface Collection {
   title: string;
   description?: string;
   images: string[];
+  tags: string[];
 
   seoPageTitle?: string;
   seoDescription?: string;
