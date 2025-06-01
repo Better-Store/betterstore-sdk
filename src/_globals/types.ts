@@ -2,7 +2,7 @@ export type SortOrder = "asc" | "desc";
 export type GetListParams<A, B> = {
   sortBy?: A;
   sortOrder?: SortOrder;
-  query?: B & { NOT?: B };
+  query?: B & { NOT?: B | B[]; OR?: B[] };
 };
 
 export type EnumQueryType<T> = {
