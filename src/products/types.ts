@@ -12,6 +12,7 @@ export interface VariantOption {
 
 export interface ProductVariant {
   title: string;
+  description?: string;
   images: string[];
 
   trackInventory: boolean;

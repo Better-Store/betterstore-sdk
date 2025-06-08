@@ -30,6 +30,7 @@ type ProductData = Pick<
   selectedVariant: Pick<
     ProductVariant,
     | "title"
+    | "description"
     | "sku"
     | "barcode"
     | "images"
