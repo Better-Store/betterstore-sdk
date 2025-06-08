@@ -63,7 +63,7 @@ export interface LineItemCreate
   variantOptions?: { name: string; value: string }[];
   productId: string;
   product?: ProductWithoutVariants;
-  metadata?: RecursiveRecord;
+  metadata?: Record<string, any>;
 }
 
 export type Currency = string;
@@ -131,7 +131,3 @@ export interface CheckoutSession {
     | "CANCELED"
     | "FAILED";
 }
-
-type RecursiveRecord = {
-  [key: string]: any;
-};
