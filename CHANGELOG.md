@@ -1,5 +1,11 @@
 # @betterstore/sdk
 
+## 0.3.106
+
+### Patch Changes
+
+- new customer type
+
 ## 0.3.105
 
 ### Patch Changes

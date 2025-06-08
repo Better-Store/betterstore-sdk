@@ -17,6 +17,14 @@ export interface CustomerCreateParams {
   email: string;
   phone?: string;
   address?: Address;
+
+  image?: string;
+  password?: string;
+  metadata?: Record<string, any>;
+
+  tags?: string[];
+  notes?: string;
+
   isSubscribedEmail?: boolean;
   isSubscribedSMS?: boolean;
 }
